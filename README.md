@@ -65,10 +65,22 @@ eTicketera/
 
 ---
 
-## Rutas disponibles
+## Rutas disponibles para pruebas
 
 ### Estado (`/api/health`)
 * `GET /` - Visualizar estado del servicio.
 
 ### Eventos (`/api/events`)
 * `GET /` - Listar todos los eventos.
+
+### Sessions (`/api/sessions`)
+* `POST /register` - Endpoint para el registro de un nuevo usuario, recibe los parámetros
+```javascript
+{
+    "first_name":"John",      // Con validaciones para campos vacíos
+    "last_name":"Doe",        // Con validaciones para campos vacíos   
+    "email":"mail@mai.com",   // Con validación Regex robusta
+    "password":"Password"     // Con validación de contraseña de al menos 8 caracteres
+}
+```
+
