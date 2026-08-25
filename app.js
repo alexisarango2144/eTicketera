@@ -13,23 +13,19 @@ app.listen(port, () => console.log(`Server running on port ${port}`));
 app.use(express.json());
 app.use(cookieParser());
 
-// app.use(
-//   session({
-//     secret: "secret-sessions",
-//     cookie: {
-//       httpOnly: true,
-//       sameSite: "lax",
-//       secure: process.env.NODE_ENV == "production",
-//       maxAge: 60 * 60 * 1000,
-//     },
-//   }),
-// );
-
 app.use(express.urlencoded({ extended: true }));
 
 connectDB();
 
 // Rutas API
 app.use("/api", apiRouter);
+
+// Manejo de error 404
+app.use((req, res, next) => {
+  res.status(404).json({
+    error: "Ruta no encontrada",
+    message: `La ruta ${req.originalUrl} no existe en este servidor`
+  });
+});
 
 app.listen(port, () => console.log(`Server running on port ${port}`));

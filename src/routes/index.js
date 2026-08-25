@@ -6,7 +6,6 @@ import sessionsRouter from "./session.router.js"
 const router = Router();
 
 router.use("/health", healthRouter);
-router.use("/events", eventsRouter);
 router.use("/sessions", sessionsRouter);
 
 export default router;

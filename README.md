@@ -70,9 +70,6 @@ eTicketera/
 ### Estado (`/api/health`)
 * `GET /` - Visualizar estado del servicio.
 
-### Eventos (`/api/events`)
-* `GET /` - Listar todos los eventos.
-
 ### Sessions (`/api/sessions`)
 * `POST /register` - Endpoint para el registro de un nuevo usuario, recibe los parámetros
 ```javascript
