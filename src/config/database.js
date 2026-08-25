@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
+import { CustomError } from "../utils/custom-error.js";
 
 export const connectDB = async()=>{
   try {
     const mongoURI = process.env.MONGO_URI;
-    if(!mongoURI) throw new Error("MONGO_URI no ha sido definida en el archivo .env");
+    if(!mongoURI) throw new CustomError("Error inicializando la base de datos del servidor. MONGO_URI no ha sido definida en el archivo .env", 500);
     
     await mongoose.connect(mongoURI);
 
