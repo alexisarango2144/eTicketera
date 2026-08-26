@@ -8,8 +8,6 @@ export const app = express();
 
 const port = process.env.PORT;
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
-
 app.use(express.json());
 app.use(cookieParser());
 

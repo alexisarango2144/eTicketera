@@ -21,7 +21,7 @@ class SessionService {
     const emailRegexString = process.env.EMAIL_REGEX;
     const emailRegex = emailRegexString 
       ? new RegExp(emailRegexString) 
-      : /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/;
+      : /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     if (!emailRegex.test(normalizedEmail)) {
       throw new CustomError("Email no válido", 422);
