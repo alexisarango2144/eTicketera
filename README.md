@@ -70,6 +70,19 @@ eTicketera/
 ### Estado (`/api/health`)
 * `GET /` - Visualizar estado del servicio.
 
+### Events (`/api/events`)
+* `GET /` - Retorna todos los eventos
+
+* `POST /create` - Endpoint para la creación de un nuevo evento, recibe los parámetros
+```javascript
+{
+    "titulo":"IX Simposio de enfermería",               // Con validaciones para campos vacíos
+    "descripcion":"Simposio nacional de enfermería",    // Con validaciones para campos vacíos   
+    "categoria":"Enfermería",   
+    "capacidad_maxima":300     
+}
+```
+
 ### Sessions (`/api/sessions`)
 * `POST /register` - Endpoint para el registro de un nuevo usuario, recibe los parámetros
 ```javascript

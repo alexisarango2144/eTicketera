@@ -1,12 +1,10 @@
 import express from "express";
-import "dotenv/config";
 import { connectDB } from "./src/config/database.js";
 import apiRouter from "./src/routes/index.js";
 import cookieParser from "cookie-parser";
 
 export const app = express();
 
-const port = process.env.PORT;
 
 app.use(express.json());
 app.use(cookieParser());
@@ -26,4 +24,4 @@ app.use((req, res, next) => {
   });
 });
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+
