@@ -106,7 +106,7 @@ eTicketera/
 ```
 
 Si el registro es exitoso, se retorna la información básica del usuario sin exponer contraseñas
- 
+
 ```javascript
 {
     "status": "success",
@@ -120,6 +120,15 @@ Si el registro es exitoso, se retorna la información básica del usuario sin ex
 }
 ```
 
+Response `400` si falta algún dato obligatorio
+```javascript
+{
+    "status": "error",
+    "message": "Faltan campos obligatorios"
+}
+```
+
+
 - `POST /login` - Endpoint para el inicio de sesión, crea el JWT y lo almacena en la cookie `currentUser`, espera los valores
 
 ```javascript
@@ -129,6 +138,55 @@ Si el registro es exitoso, se retorna la información básica del usuario sin ex
 }
 ```
 
+Response `200`
+```javascript
+{
+    "status": "success",
+    "message": "Autenticación exitosa"
+}
+```
+
+Response `400`
+```javascript
+{
+    "status": "error",
+    "message": "El email y la contraseña son obligatorios"
+}
+```
+
+Response `401`
+```javascript
+{
+    "status": "error",
+    "message": "Credenciales inválidas"
+}
+```
+
+
 - `GET /current` - Ruta protegida, si la sesión es válida, retorna el usuario actual.
+```javascript
+{
+    "status": "success",
+    "payload": {
+        "id": "6a8d2568791e41bbc60913e6",
+        "email": "alexisarango2144@gmail.com",
+        "role": "user"
+    }
+}
+```
+De lo contrario, retorna `401`
+```javascript
+{
+    "status": "error",
+    "message": "No autenticado"
+}
+```
 
 - `POST /logout` - Solicita el cierre de sesión eliminando la cookie del navegador.
+Response `200`
+```javascript
+{
+    "status": "success",
+    "message": "Logout exitoso"
+}
+```
