@@ -1,70 +1,25 @@
 import { UserDTO } from "../dto/user.dto.js";
 import userModel from "../models/user.model.js";
-import sessionService from "../services/session.service.js";
+import userService from "../services/user.service.js";
 import { isValidPassword } from "../utils/hash.js";
 import { generateJWT } from "../utils/jwt.js";
 
+// Registro
+
 export const register = async (req, res) => {
-  try {
-    const result = await sessionService.register(req.body);
-
-    return res.status(201).json({
-      status: "success",
-      payload: result,
-    });
-  } catch (error) {
-    if (error.message == "EMAIL_EXISTS") {
-      return res.status(409).json({
-        status: "error",
-        message: "El email ya se encuentra registrado",
-      });
-    }
-
-    return res.status(400).json({
-      status: "error",
-      message: error.message,
-    });
-  }
+  return res.status(201).json({
+    status: "success",
+    message: "Usuario registrado correctamente"
+  });
 };
+
+//Login local
 
 export const login = async (req, res) => {
   try {
-    const { email, password } = req.body
+    const user = req.user;
 
-    if(!email || !password){
-      return res.status(400).json({
-        status: "error",
-        message: "El email y la contraseña son obligatorios"
-      })
-    }
-
-    const normalizedEmail = email.toLowerCase().trim();
-
-    const user = await userModel.findOne({email: normalizedEmail});
-
-    if(!user) {
-      return res.status(401).json({
-        status: "error",
-        message: "Credenciales inválidas"
-      })
-    }
-    
-    const validPassword = await isValidPassword(password, user.password);
-    
-    if(!validPassword){
-      return res.status(401).json({
-        status: "error",
-        message: "Credenciales inválidas"
-      })
-    }
-
-    const userToken = {
-      id: user._id,
-      email: user.email,
-      role: user.role
-    };
-
-    const token = generateJWT(userToken);
+    const token = generateJWT(user);
 
     res.cookie('currentUser', token, {
       httpOnly: true,
@@ -73,10 +28,12 @@ export const login = async (req, res) => {
       secure: process.env.NODE_ENV === "production"
     })
 
-    res.status(200).json({
-      status: "success",
-      message: "Autenticación exitosa"
-    })
+    return res
+      .status(200)
+      .json({
+        status: "success",
+        message: "Autenticación exitosa"
+      });
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -85,6 +42,34 @@ export const login = async (req, res) => {
     })
   }
 }
+
+export const githubCallback = async (req, res) => {
+  try {
+    const token = generateJWT(req.user);
+
+    res.cookie('currentUser', token, {
+      httpOnly: true,
+      maxAge: 3600000, // 60 * 60 * 1000
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production"
+    })
+
+    return res
+      .status(200)
+      .json({
+        status: "success",
+        message: "Autenticación vía GitHub exitosa"
+      });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: "error",
+      message: "Error durante la autenticación con GitHub"
+    })
+  }
+}
+
+// Current
 
 export const current = async (req, res) => {
   try {

@@ -21,12 +21,22 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true
+      required: false,
+      default: null
     },
     role: {
       type: String,
       enum: ['admin', 'organizer', 'user'],
       default: 'user'
+    },
+    provider: {
+      type: String,
+      enum: ["local", "github"],
+      default: "local"
+    },
+    providerId: {
+      type: String, 
+      default: null
     }
   },
   {

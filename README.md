@@ -162,6 +162,15 @@ Response `401`
 }
 ```
 
+- `GET /github` - Redirecciona a la URL de OAuth de GitHub para autenticar o registrar el usuario. Redirecciona a `/github/callback` y responde con
+
+Response `200`
+```javascript
+{
+    "status": "success", 
+    "message": "Autenticación vía GitHub exitosa"
+}
+```
 
 - `GET /current` - Ruta protegida, si la sesión es válida, retorna el usuario actual.
 ```javascript
