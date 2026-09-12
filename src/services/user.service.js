@@ -1,9 +1,10 @@
+import userDAO from "../dao/users.dao.js";
 import usersRepository from "../repositories/users.repository.js";
 import { CustomError } from "../utils/custom-error.js";
 import { createHash } from "../utils/hash.js";
 import "dotenv/config";
 
-class SessionService {
+class UserService {
   async register(data) {
     const {
       first_name,
@@ -58,6 +59,30 @@ class SessionService {
     };
 
   }
+
+  // GitHub user registration
+
+  async registerGitHubUser({first_name, last_name, email, providerId}) {
+    const normalizedEmail = email.trim().toLowerCase();
+
+    let user = await userDAO.findByEmail(normalizedEmail);
+
+    if(user){
+      return user;
+    }
+
+    user = await userDAO.createUser({
+      first_name,
+      last_name,
+      email: normalizedEmail,
+      password: null,
+      role: "user",
+      provider: "github",
+      providerId
+    });
+
+    return user;
+  }
 }
 
-export default new SessionService();
+export default new UserService();

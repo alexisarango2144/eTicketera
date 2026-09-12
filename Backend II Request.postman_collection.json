@@ -1,0 +1,706 @@
+{
+  "info": {
+    "_postman_id": "99324e09-49ed-4ef4-8cef-f54c7f506486",
+    "name": "Backend II",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "42763644"
+  },
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"first_name\":\"Alex\",\r\n    \"last_name\":\"Herrera\",\r\n    \"email\":\"alexis@email.org\",\r\n    \"password\":\"Alexis64\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/api/sessions/register",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "sessions",
+            "register"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Register",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"first_name\":\"Alexis\",\r\n    \"last_name\":\"Herrera Arango\",\r\n    \"email\":\"alexis.herrera@email.org\",\r\n    \"password\":\"AlexPrueba1254\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/api/sessions/register",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "sessions",
+                "register"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "163"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"a3-CVmveor3hs9cfUEJWYEQN1oTjMU\""
+            },
+            {
+              "key": "date",
+              "value": "Fri, 11 Sep 2026 03:11:01 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"status\": \"success\",\n  \"payload\": {\n    \"id\": \"6aa371440045a39f6870755d\",\n    \"first_name\": \"Alexis\",\n    \"last_name\": \"Herrera Arango\",\n    \"email\": \"alexis.herrera@auna.org\",\n    \"role\": \"user\"\n  }\n}"
+        },
+        {
+          "name": "Register local passport",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"first_name\":\"Alexis\",\r\n    \"last_name\":\"Herrera Arango\",\r\n    \"email\":\"alexisarango2144@gmail.com\",\r\n    \"password\":\"Alex6415\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/api/sessions/register",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "sessions",
+                "register"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "65"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"41-+UO0wpFWmWPJ9rlRLVw70zQNink\""
+            },
+            {
+              "key": "date",
+              "value": "Fri, 11 Sep 2026 22:00:50 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"status\": \"success\",\n  \"message\": \"Usuario registrado correctamente\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\":\"alexis@email.com\",\r\n    \"password\":\"Alex.73475\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/api/sessions/login",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "sessions",
+            "login"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Login incorrecto",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":\"alexisarango2144@gmail.com\",\r\n    \"password\":\"Alex6415\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/api/sessions/login",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "sessions",
+                "login"
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "54"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"36-IAEurGKE96Q5Bgp4g8EsDsFpsNs\""
+            },
+            {
+              "key": "date",
+              "value": "Fri, 11 Sep 2026 03:10:03 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"status\": \"error\",\n  \"message\": \"Credenciales inválidas\"\n}"
+        },
+        {
+          "name": "Login correcto",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":\"alexis.herrera@auna.org\",\r\n    \"password\":\"Alex6415\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/api/sessions/login",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "sessions",
+                "login"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "set-cookie",
+              "value": "currentUser=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhYTM3MTQ0MDA0NWEzOWY2ODcwNzU1ZCIsImVtYWlsIjoiYWxleGlzLmhlcnJlcmFAYXVuYS5vcmciLCJyb2xlIjoidXNlciIsImlhdCI6MTc4OTA5NjMxNCwiZXhwIjoxNzg5MDk5OTE0fQ.PGmQF8hMMRvBOH7mRaFpPQQsPhlupjS2vo2WDo4ouoc; Max-Age=3600; Path=/; Expires=Fri, 11 Sep 2026 04:11:54 GMT; HttpOnly; SameSite=Lax"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "55"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"37-VjKnKgAJ0jt8JfenjXJTYv3mU/U\""
+            },
+            {
+              "key": "date",
+              "value": "Fri, 11 Sep 2026 03:11:54 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"status\": \"success\",\n  \"message\": \"Autenticación exitosa\"\n}"
+        },
+        {
+          "name": "Login sin credenciales",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":\"alexis.herrera@auna.org\",\r\n    \"password\":\"\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/api/sessions/login",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "sessions",
+                "login"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "73"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"49-e5RdG20X1PiQeaOBjUslv5tRrHU\""
+            },
+            {
+              "key": "date",
+              "value": "Fri, 11 Sep 2026 03:14:07 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"status\": \"error\",\n  \"message\": \"El email y la contraseña son obligatorios\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Current",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/api/sessions/current",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "sessions",
+            "current"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Current no autenticado",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/api/sessions/current",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "sessions",
+                "current"
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "45"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"2d-D274w7oWvK6AfuYIGoWZjS9Fwz4\""
+            },
+            {
+              "key": "date",
+              "value": "Fri, 11 Sep 2026 03:10:10 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"status\": \"error\",\n  \"message\": \"No autenticado\"\n}"
+        },
+        {
+          "name": "Current autenticado",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/api/sessions/current",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "sessions",
+                "current"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "112"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"70-zeULuatGNZnt/8PK2FFqEAiZjJk\""
+            },
+            {
+              "key": "date",
+              "value": "Fri, 11 Sep 2026 03:12:34 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"status\": \"success\",\n  \"payload\": {\n    \"id\": \"6aa371440045a39f6870755d\",\n    \"email\": \"alexis.herrera@auna.org\",\n    \"role\": \"user\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Logout",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/api/sessions/logout",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "sessions",
+            "logout"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Logout",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/api/sessions/logout",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "sessions",
+                "logout"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "set-cookie",
+              "value": "currentUser=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "47"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"2f-ej9BXO62SRnvtYaUuWiXUEPeW2g\""
+            },
+            {
+              "key": "date",
+              "value": "Fri, 11 Sep 2026 03:12:53 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"status\": \"success\",\n  \"message\": \"Logout exitoso\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Ignorar",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"titulo\":\"Aniversario de Alexis\",\r\n    \"descripcion\":\"Aniversario número 4 de Alexis\",\r\n    \"categoria\":\"Aniversarios\",\r\n    \"capacidad_maxima\":100\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/api/events/create",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "events",
+            "create"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Ignorar II",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/api/events/",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "events",
+            ""
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

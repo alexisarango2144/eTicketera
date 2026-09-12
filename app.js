@@ -2,12 +2,14 @@ import express from "express";
 import { connectDB } from "./src/config/database.js";
 import apiRouter from "./src/routes/index.js";
 import cookieParser from "cookie-parser";
+import passport from "./src/config/passport.config.js";
 
 export const app = express();
 
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(passport.initialize());
 
 app.use(express.urlencoded({ extended: true }));
 

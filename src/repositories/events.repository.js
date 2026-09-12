@@ -1,24 +1,25 @@
-import eventDAO from "../dao/events.dao.js";
+import Event from "../models/event.model.js";
 
 class EventsRepository {
   async getAll(){
-    return await eventDAO
-      .getAll();
+    return await Event
+      .find();
   }
 
   async getById(id) {
-    return await eventDAO
-      .getById(id);
-  }
-  
-  async findByTitle(titulo) {
-    return await eventDAO
-      .findByTitle(titulo);
+    return await Event
+      .findById(id);
   }
 
-  async create(eventData) {
-    return await eventDAO
-      .create(eventData);
+  async findByTitle(titulo){
+    return await Event
+      .find({
+        titulo: { $regex: titulo, $options: "i"}
+      })
+  }
+
+  async create(data){
+    return await Event.create(data);
   }
 }
 
