@@ -2,10 +2,13 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import { Strategy as GitHubStrategy } from "passport-github2";
-import userDAO from "../dao/users.dao.js";
-import userService from "../services/user.service.js";
+import { UserDAO } from "../dao/users.dao.js";
+import { AuthService } from "../services/auth.service.js";
 
 import { isValidPassword } from "../utils/hash.js";
+
+const authService = new AuthService();
+const userDAO = new UserDAO();
 
 // REGISTRO DE USUARIO
 
@@ -28,7 +31,7 @@ passport.use(
           });
         }
 
-        const newUser = await userService.register({
+        const newUser = await authService.register({
           first_name,
           last_name,
           email,
@@ -110,7 +113,7 @@ passport.use(
 
         let email = profile.emails?.[0]?.value;
 
-        if(!email) {
+        if (!email) {
           // Fallback para cuentas sin email público
           const gitEmail = await fetch(`https://api.github.com/user/emails`, {
             headers: {
@@ -121,81 +124,80 @@ passport.use(
 
           const emails = await gitEmail.json();
 
-          email = emails.find((e) => e.primary && e.verified)?.email ?? emails.find((e) => e.verified)?.email ?? null;
+          email =
+            emails.find((e) => e.primary && e.verified)?.email ??
+            emails.find((e) => e.verified)?.email ??
+            null;
 
-          if(!email) {
+          if (!email) {
             return done(null, false, {
-              message: "GitHub no devolvió un email válido. Agrega un email público/verificado en tu perfil de GitHub o usa otro método de login."
+              message:
+                "GitHub no devolvió un email válido. Agrega un email público/verificado en tu perfil de GitHub o usa otro método de login.",
             });
           }
         }
 
-        const first_name = 
-          profile.name?.givenName || 
-          profile.displayName?.split(" ")?.[0] || 
+        const first_name =
+          profile.name?.givenName ||
+          profile.displayName?.split(" ")?.[0] ||
           "Usuario";
 
-        const last_name = 
-          profile.name?.familyName || 
-          profile.displayName?.split(" ")?.slice(1).join(" ") || 
+        const last_name =
+          profile.name?.familyName ||
+          profile.displayName?.split(" ")?.slice(1).join(" ") ||
           "GitHub";
 
-        const user = await userService.registerGitHubUser({
+        const user = await authService.registerGitHubUser({
           first_name,
           last_name,
           email,
-          providerId: profile.id
+          providerId: profile.id,
         });
 
         return done(null, user);
-
       } catch (error) {
         console.error("Error de autenticación con GitHub", error);
 
         return done(error);
       }
-    }
+    },
   ),
 );
-
 
 // COOKIE EXTRACTOR
 
 const cookieExtractor = (req) => {
-  if(req && req.cookies && req.cookies.currentUser) {
+  if (req && req.cookies && req.cookies.currentUser) {
     return req.cookies.currentUser;
-  }else{
+  } else {
     return null;
   }
-}
-
+};
 
 // LOCAL STRATEGY
 
 passport.use(
-  "current", 
+  "current",
   new JwtStrategy(
     {
-      jwtFromRequest: 
-        ExtractJwt.fromExtractors([cookieExtractor]),
-      
-      secretOrKey:
-        process.env.JWT_SECRET
+      jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
+
+      secretOrKey: process.env.JWT_SECRET,
     },
     async (jwt_payload, done) => {
       try {
-        const user = await userDAO.getUserById(jwt_payload.id);
+        const user = await userDAO.getById(jwt_payload.id);
 
-        if(!user) {
+        if (!user) {
           return done(null, false);
         }
 
         return done(null, user);
-      } catch(error) {
+      } catch (error) {
         return done(error);
       }
-    }
-  )
-)
+    },
+  ),
+);
 
 export default passport;

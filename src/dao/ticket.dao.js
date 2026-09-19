@@ -31,9 +31,9 @@ export class TicketDAO {
 
   async sumReservedByEvent(eventId) {
     const result = await Ticket.aggregate([
-        { $match: { event: eventId, status: "confirmed"}},
-        { $group: { _id: "$event", totalReserved: { $sum: "$quantity" } } }
-    ])
+      { $match: { event: eventId, status: "confirmed" } },
+      { $group: { _id: "$event", totalReserved: { $sum: "$quantity" } } },
+    ]);
 
     return result[0]?.totalReserved || 0;
   }

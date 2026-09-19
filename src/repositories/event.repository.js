@@ -1,4 +1,4 @@
-import { EventDAO } from "../dao/event.daoo.js";
+import { EventDAO } from "../dao/event.dao.js";
 
 export class EventRepository {
   constructor() {
