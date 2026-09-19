@@ -79,6 +79,7 @@ export const current = async (req, res) => {
 
     return res.status(200).json({
       status: "success",
+      message: "Sesión activa para el usuario",
       payload: userDTO
     });
   } catch (error) {

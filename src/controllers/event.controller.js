@@ -1,29 +1,44 @@
-import eventService from "../services/event.service.js";
+import { EventService } from "../services/event.service.js";
 
-export const create = async (req, res) => {
+const eventService = new EventService();
+
+export const createEvent = async (req, res, next) => {
   try {
-    const result = await eventService.create(req.body);
+    const event = await eventService.createEvent(req.body, req.user);
 
     return res.status(201).json({
       status: "success",
-      payload: result,
+      message: "Evento creado con éxito",
+      data: event,
     });
   } catch (error) {
-    return res.status(500).json({
-      status: "error",
-      message: error.message,
-    });
+    next(error);
   }
 };
 
-export const getAll = async (req, res) => {
+export const getEvents = async (req, res, next) => {
   try {
-    const result = await eventService.getAll();
-    
+    const result = await eventService.getEvents(req.query);
+
     return res.status(200).json({
       status: "success",
+      message: "Eventos obtenidos con éxito",
+      data: { ...result },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getById = async (req, res) => {
+  try {
+    const result = await eventService.getById(id);
+
+    return res.status(200).json({
+      status: "success",
+      message: "Eventos obtenidos con éxito",
       payload: result,
-    })
+    });
   } catch (error) {
     return res.status(500).json({
       status: "error",
@@ -32,3 +47,8 @@ export const getAll = async (req, res) => {
   }
 };
 
+export const updateById = async (req, res) => {
+  try {
+    const result = await eventService.updateById(req.params.eventId, req.body);
+  } catch (error) {}
+};

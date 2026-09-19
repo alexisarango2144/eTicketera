@@ -100,7 +100,7 @@ eTicketera/
 {
    "first_name":"John",      // Con validaciones para campos vacíos
     "last_name":"Doe",        // Con validaciones para campos vacíos
-    "email":"mail@mai.com",   // Con validación Regex robusta
+    "email":"mail@mail.com",   // Con validación Regex robusta
     "password":"Password"     // Con validación de contraseña de al menos 8 caracteres
 }
 ```
@@ -113,8 +113,8 @@ Si el registro es exitoso, se retorna la información básica del usuario sin ex
     "payload": {
         "id": "6a926937127b8b46228994e9",
         "first_name": "Alexis",
-        "last_name": "Herrera Arango",
-        "email": "alexisarango2144@gmail.co",
+        "last_name": "Herrera",
+        "email": "mail@mail.co",
         "role": "user"
     }
 }
@@ -133,7 +133,7 @@ Response `400` si falta algún dato obligatorio
 
 ```javascript
 {
-   "email":"mail@mai.com",
+   "email":"email@mail.com",
    "password":"Password"
 }
 ```
@@ -178,7 +178,7 @@ Response `200`
     "status": "success",
     "payload": {
         "id": "6a8d2568791e41bbc60913e6",
-        "email": "alexisarango2144@gmail.com",
+        "email": "email@mail.com",
         "role": "user"
     }
 }
