@@ -135,7 +135,7 @@ export class EventService {
         filter.date.$lte = to;
       }
     }
-    
+
     const allowedSortFields = [
       "date",
       "price",
@@ -224,7 +224,7 @@ export class EventService {
 
     this.validateCapacityAndPrice(updateData);
 
-    if (Object.keys(updatedData).length === 0) {
+    if (Object.keys(updateData).length === 0) {
       throw new CustomError(
         "No se encontraron campos válidos para actualizar",
         409,
