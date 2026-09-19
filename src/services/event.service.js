@@ -134,45 +134,45 @@ export class EventService {
         }
         filter.date.$lte = to;
       }
-
-      const allowedSortFields = [
-        "date",
-        "price",
-        "title",
-        "category",
-        "location",
-      ];
-      const sortField = sort.startsWith("-") ? sort.slice(1) : sort;
-
-      if (!allowedSortFields.includes(sortField)) {
-        throw new CustomError(
-          `Campo de ordenamiento no válido. Los campos permitidos son: ${allowedSortFields.join(", ")}`,
-        );
-      }
-
-      const sortObject = {
-        [sortField]: sort.startsWith("-") ? -1 : 1,
-      };
-
-      const skip = (currentPage - 1) * currentLimit;
-
-      const [data, total] = await Promise.all([
-        this.eventRepository.findAll(filter, {
-          skip,
-          limit: currentLimit,
-          sort: sortObject,
-        }),
-        this.eventRepository.count(filter),
-      ]);
-
-      return {
-        data,
-        page: currentPage,
-        limit: currentLimit,
-        total,
-        totalPages: Math.ceil(total / currentLimit),
-      };
     }
+    
+    const allowedSortFields = [
+      "date",
+      "price",
+      "title",
+      "category",
+      "location",
+    ];
+    const sortField = sort.startsWith("-") ? sort.slice(1) : sort;
+
+    if (!allowedSortFields.includes(sortField)) {
+      throw new CustomError(
+        `Campo de ordenamiento no válido. Los campos permitidos son: ${allowedSortFields.join(", ")}`,
+      );
+    }
+
+    const sortObject = {
+      [sortField]: sort.startsWith("-") ? -1 : 1,
+    };
+
+    const skip = (currentPage - 1) * currentLimit;
+
+    const [data, total] = await Promise.all([
+      this.eventRepository.findAll(filter, {
+        skip,
+        limit: currentLimit,
+        sort: sortObject,
+      }),
+      this.eventRepository.count(filter),
+    ]);
+
+    return {
+      data,
+      page: currentPage,
+      limit: currentLimit,
+      total,
+      totalPages: Math.ceil(total / currentLimit),
+    };
   }
 
   async assertCanManage(event, user) {
@@ -237,7 +237,7 @@ export class EventService {
   async changeStatus(id, status, user) {
     const event = await this.getEventById(id);
 
-    if(event.status === "cancelled") {
+    if (event.status === "cancelled") {
       throw new CustomError(
         "No se puede modificar el evento ya que se encuentra cancelado",
         409,
@@ -248,15 +248,15 @@ export class EventService {
 
     this.validateStatus(status);
 
-    if(status === "published" && event.status === "finished"){
+    if (status === "published" && event.status === "finished") {
       throw new CustomError("No se puede publicar un evento finalizado");
     }
 
-    if(status === "published" && event.status === "cancelled"){
+    if (status === "published" && event.status === "cancelled") {
       throw new CustomError("No se puede publicar un evento cancelado");
     }
-    
-    if(event.status === status){
+
+    if (event.status === status) {
       throw new CustomError(`El evento ta tiene status ${status}`);
     }
 

@@ -10,7 +10,7 @@ export class EventRepository {
   }
 
   findById(id) {
-    return this.dao.findById(id);
+    return this.dao.getById(id);
   }
 
   updateById(id, data) {

@@ -23,7 +23,7 @@ export const getEvents = async (req, res, next) => {
     return res.status(200).json({
       status: "success",
       message: "Eventos obtenidos con éxito",
-      data: { ...result },
+      ...result
     });
   } catch (error) {
     next(error);
@@ -32,7 +32,7 @@ export const getEvents = async (req, res, next) => {
 
 export const getEventById = async (req, res, next) => {
   try {
-    const event = await eventService.getEventById(req.params.id);
+    const event = await eventService.getEventById(req.params.eventId);
 
     return res.status(200).json({
       status: "success",
@@ -74,7 +74,7 @@ export const changeEventStatus = async (req, res, next) => {
     }
 
     const event = await eventService.changeStatus(
-      req.params.id,
+      req.params.eventId,
       status,
       req.user
     );
