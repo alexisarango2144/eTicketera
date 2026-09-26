@@ -1,9 +1,8 @@
 import { transporter } from "../config/mailer.config.js";
-import { CustomError } from "../utils/custom-error.js";
 
 let from = process.env.MAIL_FROM;
 export class EmailService {
-    async #send(to, subject, html){
+    async #send({to, subject, html}){
         try {
             const info = await transporter.sendMail({from, to, subject, html});
             return info;
