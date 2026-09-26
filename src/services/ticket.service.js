@@ -3,12 +3,14 @@ import mongoose from "mongoose";
 import { TicketRepository } from "../repositories/ticket.repository.js";
 import { EventRepository } from "../repositories/event.repository.js";
 import { generateTicketCode } from "../utils/ticketCode.js";
-import { CustomError } from "../utils/errors.js";
+import { CustomError } from "../utils/custom-error.js";
+import { EmailService } from "./email.service.js";
 
 export class TicketService {
     constructor() {
         this.ticketRepository = new TicketRepository();
         this.eventRepository = new EventRepository();
+        this.emailService = new EmailService();
     }
 
     validateObjectId(id) {
@@ -65,10 +67,12 @@ export class TicketService {
             throw error;
         }
 
+        await this.emailService.sendTicketConfirmation(user, event, ticket);
+
         return ticket;
     }
 
-    async getTicketsFromUser(user) {
+    async getTicketsByUser(user) {
         return this.ticketRepository.findByUser(user._id);
     }
 
@@ -96,13 +100,15 @@ export class TicketService {
         }
 
         existingTicket.status = "cancelled";
-        existintTicket.cancelledAt = new Date();
+        existingTicket.cancelledAt = new Date();
         const cancelled = await this.ticketRepository.save(existingTicket);
 
-        const eventId = existingTicket.event?._id || existintTicket.event;
+        const eventId = existingTicket.event?._id || existingTicket.event;
 
         await this.eventRepository.releaseSeats(eventId, existingTicket.quantity);
         
+        await this.emailService.sendTicketCancellation(user, existingTicket.event, existingTicket);
+
         return cancelled;
     }
 }

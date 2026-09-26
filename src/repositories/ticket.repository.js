@@ -1,4 +1,4 @@
-import { TicketDAO } from "../dao/ticket.dao";
+import { TicketDAO } from "../dao/ticket.dao.js";
 
 export class TicketRepository{
     constructor(){
@@ -14,7 +14,7 @@ export class TicketRepository{
     }
 
     findById(id){
-        return this.dao.findById(id);
+        return this.dao.getById(id);
     }
 
     findByUser(userId){
