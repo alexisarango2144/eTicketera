@@ -199,3 +199,47 @@ Response `200`
     "message": "Logout exitoso"
 }
 ```
+
+### Tickets (`/api/tickets`)
+
+- `POST /event/:eventId/tickets` - Genera el registro del usuario a un evento y genera un ticket `200`
+```javascript
+{
+    "status": "success",
+    "message": "Inscripción realizada con éxito",
+    "data": {
+        "id": "6ab7c7c24949bd7848af7595",
+        "event": "6aae9d395b09893290def65b",
+        "quantity": 2,
+        "status": "confirmed",
+        "reservationCode": "TK-ISGQ2EZK"
+    }
+}
+```
+
+- `GET /my-tickets` - Retorna los tickets de los eventos en los que el usuario se ha registrado.
+Response `200`
+```javascript
+{
+    "status": "success",
+    "message": "Logout exitoso"
+}
+```
+
+- `POST /logout` - Solicita el cierre de sesión eliminando la cookie del navegador.
+Response `200`
+```javascript
+{
+    "status": "success",
+    "message": "Logout exitoso"
+}
+```
+
+- `POST /logout` - Solicita el cierre de sesión eliminando la cookie del navegador.
+Response `200`
+```javascript
+{
+    "status": "success",
+    "message": "Logout exitoso"
+}
+```

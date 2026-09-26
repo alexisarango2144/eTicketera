@@ -13,11 +13,12 @@ export class TicketDAO {
     return Ticket.findById(id).populate("event");
   }
 
-  async findByUser(userId) {
-    return Ticket.find({ user: userId })
+  async findByUser(userId, filter, { skip, limit, sort }) {
+    return Ticket.find({ user: userId, ...filter })
       .populate("event", "title date location")
-      .sort({ createdAt: -1 });
-  }
+      .sort(sort)
+      .skip(skip)
+      .limit(limit);  }
 
   async findByEvent(eventId) {
     return Ticket.find({ event: eventId })
@@ -27,6 +28,10 @@ export class TicketDAO {
 
   async save(ticket) {
     return ticket.save();
+  }
+
+  async count(userId, filter) {
+    return Ticket.countDocuments({ user: userId || null, ...filter });
   }
 
   async sumReservedByEvent(eventId) {

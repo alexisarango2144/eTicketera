@@ -19,7 +19,7 @@ export const createEvent = async (req, res, next) => {
 export const getEvents = async (req, res, next) => {
   try {
     const result = await eventService.getEvents(req.query);
-
+    
     return res.status(200).json({
       status: "success",
       message: "Eventos obtenidos con éxito",

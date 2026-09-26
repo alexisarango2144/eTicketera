@@ -2,6 +2,7 @@ import { UserRepository } from "../repositories/user.repository.js";
 import { createHash, isValidPassword } from "../utils/hash.js";
 import { generateJWT } from "../utils/jwt.js";
 import { CustomError } from "../utils/custom-error.js";
+import { UserDTO, AccountDTO } from "../dto/user.dto.js";
 import "dotenv/config";
 
 export class AuthService {
@@ -56,12 +57,10 @@ export class AuthService {
       role: "user",
     });
 
+    const accountDTO = new AccountDTO(user);
+
     return {
-      user: {
-        id: user._id,
-        email: user.email,
-        role: user.role,
-      },
+      user: accountDTO,
       token: generateJWT(user),
     };
   }
@@ -70,7 +69,6 @@ export class AuthService {
     const normalizedEmail = email.trim().toLowerCase();
 
     const user = await this.userRepository.findByEmail(normalizedEmail);
-
     if (!user) {
       throw new CustomError(
         "Las credenciales proporcionadas no son válidas",
@@ -87,12 +85,9 @@ export class AuthService {
       );
     }
 
+    const accountDTO = new AccountDTO(user);
     return {
-      user: {
-        id: user._id,
-        email: user.email,
-        role: user.role,
-      },
+      user: accountDTO,
       token: generateJWT(user),
     };
   }
@@ -116,12 +111,9 @@ export class AuthService {
       });
     }
 
+    const accountDTO = new AccountDTO(user);
     return {
-      user: {
-        id: user._id,
-        email: user.email,
-        role: user.role,
-      },
+      user: accountDTO,
       token: generateJWT(user),
     };
   }

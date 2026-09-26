@@ -17,8 +17,8 @@ export class TicketRepository{
         return this.dao.getById(id);
     }
 
-    findByUser(userId){
-        return this.dao.findByUser(userId);
+    findByUser(userId, filter, pagination){
+        return this.dao.findByUser(userId, filter, pagination);
     }
 
     findByEvent(eventId){
@@ -31,5 +31,9 @@ export class TicketRepository{
 
     sumReservedByEvent(eventId){
         return this.dao.sumReservedByEvent(eventId);
+    }
+
+    count(userId, filter){
+        return this.dao.count(userId, filter);
     }
 }

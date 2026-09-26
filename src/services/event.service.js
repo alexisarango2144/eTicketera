@@ -147,7 +147,7 @@ export class EventService {
 
     if (!allowedSortFields.includes(sortField)) {
       throw new CustomError(
-        `Campo de ordenamiento no válido. Los campos permitidos son: ${allowedSortFields.join(", ")}`,
+        `Campo de ordenamiento no válido. Los campos permitidos son: ${allowedSortFields.join(", ")}`, 400,
       );
     }
 
@@ -165,6 +165,7 @@ export class EventService {
       }),
       this.eventRepository.count(filter),
     ]);
+
 
     return {
       data,

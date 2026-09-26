@@ -6,6 +6,8 @@ import { generateTicketCode } from "../utils/ticketCode.js";
 import { CustomError } from "../utils/custom-error.js";
 import { EmailService } from "./email.service.js";
 
+const VALID_STATUSES = ["confirmed", "pending", "cancelled"];
+
 export class TicketService {
     constructor() {
         this.ticketRepository = new TicketRepository();
@@ -27,6 +29,14 @@ export class TicketService {
         return value
     }
 
+    validateStatus(status) {
+        if (status !== undefined && !VALID_STATUSES.includes(status)) {
+          throw new CustomError(
+            `El estado seleccionado no es válido. Los valores permitidos son: ${VALID_STATUSES.join(", ")}`,
+          );
+        }
+      }
+
     async enroll(user, eventId, quantity){
         this.validateObjectId(eventId);
         const seats = this.validateQuantity(quantity);
@@ -46,7 +56,7 @@ export class TicketService {
 
         const existingTicket = await this.ticketRepository.findByUserAndEvent(user._id, event._id, "confirmed");
 
-        if(existingTicket) throw new CustomError("El usuario ya se encuentra anotado en el evento", 409);
+        if(existingTicket) throw new CustomError("El usuario ya tiene un ticket confirmado para el evento", 409);
 
         const reservedEvent = await this.eventRepository.reserveSeats(event._id, seats)
         if(!reservedEvent){
@@ -72,8 +82,53 @@ export class TicketService {
         return ticket;
     }
 
-    async getTicketsByUser(user) {
-        return this.ticketRepository.findByUser(user._id);
+    async getTicketsByUser(user, query) {
+        const {
+            status,
+            page = 1,
+            limit = 10,
+            sort = "createdAt"
+        } = query || {};
+
+        this.validateStatus(status);
+
+        const currentPage = Math.max(Number(page) || 1, 1);
+        const currentLimit = Math.min(Math.max(Number(limit) || 10, 1), 100);
+
+        const filter = {};
+        if (status) {
+            filter.status = status;
+        }
+
+        const allowedSortFields = ["createdAt", "status"];
+        const sortField = sort.startsWith("-") ? sort.slice(1) : sort;
+
+        if(!allowedSortFields.includes(sortField)){
+            throw new CustomError(`El campo de ordenamiento no es válido. Los valores permitidos son: ${allowedSortFields.join(", ")}`, 400);
+        }
+
+        const sortObject = {
+            [sortField]: sort.startsWith("-") ? -1 : 1
+        };
+
+        const skip = (currentPage - 1) * currentLimit;
+
+        const [data, total] = await Promise.all([
+            this.ticketRepository.findByUser(user._id, filter, {
+                skip,
+                limit: currentLimit,
+                sort: sortObject
+            }),
+            this.ticketRepository.count(user._id, filter)
+        ]);
+
+        return {
+            data,
+            total,
+            page: currentPage,
+            limit: currentLimit,
+            totalPages: Math.ceil(total / currentLimit)
+        }
     }
 
     async getTicketsByEvent(eventId){
