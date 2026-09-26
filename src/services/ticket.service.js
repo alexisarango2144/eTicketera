@@ -5,6 +5,7 @@ import { EventRepository } from "../repositories/event.repository.js";
 import { generateTicketCode } from "../utils/ticketCode.js";
 import { CustomError } from "../utils/custom-error.js";
 import { EmailService } from "./email.service.js";
+import { TicketDTO } from "../dto/tickets.dto.js";
 
 const VALID_STATUSES = ["confirmed", "pending", "cancelled"];
 
@@ -122,8 +123,10 @@ export class TicketService {
             this.ticketRepository.count(user._id, filter)
         ]);
 
+        const ticketDTOs = data.map((ticket) => new TicketDTO(ticket));
+
         return {
-            data,
+            data: ticketDTOs,
             total,
             page: currentPage,
             limit: currentLimit,
@@ -164,6 +167,6 @@ export class TicketService {
         
         await this.emailService.sendTicketCancellation(user, existingTicket.event, existingTicket);
 
-        return cancelled;
+        return new TicketDTO(cancelled);
     }
 }

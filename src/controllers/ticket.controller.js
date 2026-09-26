@@ -1,6 +1,4 @@
 import { TicketService } from "../services/ticket.service.js";
-import { UserDTO } from "../dto/user.dto.js";
-import { EventDTO } from "../dto/event.dto.js";
 import { TicketDTO } from "../dto/tickets.dto.js";
 
 const ticketService = new TicketService();

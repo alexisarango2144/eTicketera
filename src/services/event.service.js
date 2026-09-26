@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { EventRepository } from "../repositories/event.repository.js";
 import { CustomError } from "../utils/custom-error.js";
+import { EventDTO } from "../dto/event.dto.js";
 import "dotenv/config";
 
 const VALID_STATUSES = ["draft", "published", "cancelled", "finished"];
@@ -68,7 +69,7 @@ export class EventService {
     this.validateCapacityAndPrice({ capacity, price });
     this.validateStatus(status);
 
-    return this.eventRepository.create({
+    const event = await this.eventRepository.create({
       title,
       description,
       category,
@@ -79,6 +80,8 @@ export class EventService {
       status,
       organizer: user._id,
     });
+
+    return new EventDTO(event);
   }
 
   async getEventById(id) {
@@ -90,7 +93,7 @@ export class EventService {
       throw new CustomError("No se encontró el evento", 404);
     }
 
-    return event;
+    return new EventDTO(event);
   }
 
   async getEvents(query) {
@@ -147,7 +150,8 @@ export class EventService {
 
     if (!allowedSortFields.includes(sortField)) {
       throw new CustomError(
-        `Campo de ordenamiento no válido. Los campos permitidos son: ${allowedSortFields.join(", ")}`, 400,
+        `Campo de ordenamiento no válido. Los campos permitidos son: ${allowedSortFields.join(", ")}`,
+        400,
       );
     }
 
@@ -166,6 +170,7 @@ export class EventService {
       this.eventRepository.count(filter),
     ]);
 
+    const eventDTOs = data.map((event) => new EventDTO(event));
 
     return {
       data,
@@ -232,7 +237,8 @@ export class EventService {
       );
     }
 
-    return this.eventRepository.updateById(id, updateData);
+    const updatedEvent = await this.eventRepository.updateById(id, updateData);
+    return new EventDTO(updatedEvent);
   }
 
   async changeStatus(id, status, user) {
@@ -261,6 +267,7 @@ export class EventService {
       throw new CustomError(`El evento ta tiene status ${status}`);
     }
 
-    return this.eventRepository.updateById(id, { status });
+    const updatedEvent = await this.eventRepository.updateById(id, { status });
+    return new EventDTO(updatedEvent);
   }
 }
