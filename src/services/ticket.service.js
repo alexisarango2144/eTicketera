@@ -128,7 +128,7 @@ export class TicketService {
         const ticketDTOs = data.map((ticket) => new TicketDTO(ticket));
 
         return {
-            data: ticketDTOs,
+            items: ticketDTOs,
             total,
             page: currentPage,
             limit: currentLimit,
@@ -173,7 +173,7 @@ export class TicketService {
         const ticketDTOs = data.map((ticket) => new TicketDTO(ticket));
 
         return {
-            data: ticketDTOs,
+            items: ticketDTOs,
             total,
             page: currentPage,
             limit: currentLimit,

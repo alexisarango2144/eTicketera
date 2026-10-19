@@ -1,8 +1,7 @@
-import { AuthService } from "../services/auth.service.js";
 import { generateJWT } from "../utils/jwt.js";
 import { UserDTO } from "../dto/user.dto.js";
+import { sendSuccess } from "../utils/api-response.js";
 
-const authService = new AuthService();
 
 // Registro
 
@@ -10,11 +9,11 @@ export const register = async (req, res, next) => {
   try {
     const {user, token} = req.user;
     
-    res.status(201).json({
-      status: "success",
+    return sendSuccess(res, {
+      statusCode: 201,
       message: "Usuario registrado correctamente",
       data: {user, token}
-    })
+    });
   } catch (error) {
     return next(error);
   }
@@ -33,8 +32,8 @@ export const login = async (req, res, next) => {
       secure: process.env.NODE_ENV === "production"
     })
 
-    res.json({
-      status: "success",
+    return sendSuccess(res, {
+      statusCode: 200,
       message: "Usuario autenticado",
       data: { ...user, token: req.user?.token }
     });
@@ -54,12 +53,11 @@ export const githubCallback = async (req, res, next) => {
       secure: process.env.NODE_ENV === "production"
     })
 
-    return res
-      .status(200)
-      .json({
-        status: "success",
-        message: "Autenticación vía GitHub exitosa"
-      });
+    return sendSuccess(res, {
+      statusCode: 200,
+      message: "Autenticación vía GitHub exitosa",
+      data: { token }
+    });
   } catch (error) {
     next(error);
   }
@@ -73,10 +71,10 @@ export const current = async (req, res, next) => {
 
     const userDTO = new UserDTO(user);
 
-    return res.status(200).json({
-      status: "success",
+    return sendSuccess(res, {
+      statusCode: 200,
       message: "Sesión activa para el usuario",
-      payload: userDTO
+      data: userDTO
     });
   } catch (error) {
     next(error);
@@ -86,8 +84,8 @@ export const current = async (req, res, next) => {
 export const logout = async(req, res) => {
   res.clearCookie("currentUser");
 
-  return res.status(200).json({
-    status: "success",
+  return sendSuccess(res, {
+    statusCode: 200,
     message: "Logout exitoso"
   });
 };

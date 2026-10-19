@@ -3,7 +3,7 @@ import { connectDB } from "./src/config/database.js";
 import apiRouter from "./src/routes/index.js";
 import cookieParser from "cookie-parser";
 import passport from "./src/config/passport.config.js";
-import { CustomError as errorHandler} from "./src/utils/custom-error.js";
+import { errorHandler } from "./src/middlewares/error-handler.mid.js";
 
 const app = express();
 

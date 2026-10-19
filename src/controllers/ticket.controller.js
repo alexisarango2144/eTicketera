@@ -1,5 +1,6 @@
 import { TicketService } from "../services/ticket.service.js";
 import { TicketDTO } from "../dto/tickets.dto.js";
+import { sendSuccess } from "../utils/api-response.js";
 
 const ticketService = new TicketService();
 
@@ -10,8 +11,8 @@ export const enroll = async (req, res, next) => {
 
         const ticket = await ticketService.enroll(req.user, eventId, quantity);
 
-        res.status(201).json({
-            status: "success",
+        return sendSuccess(res, {
+            statusCode: 201,
             message: "Inscripción realizada con éxito",
             data: ticket
         });
@@ -25,8 +26,8 @@ export const cancelTicket = async(req, res, next)=>{
         const { ticketId } = req.params;
         const cancelledTicket = await ticketService.cancelTicket(req.user, ticketId);
 
-        res.status(201).json({
-            status: "success",
+        return sendSuccess(res, {
+            statusCode: 201,
             message: `Ticket ${ticketId} cancelado correctamente`,
             data: cancelledTicket
         })
@@ -39,10 +40,10 @@ export const getTicketsByUser = async(req, res, next)=>{
     try {
         const result = await ticketService.getTicketsByUser(req.user, req.query);
 
-        res.status(201).json({
-            status: "success",
+        return sendSuccess(res, {
+            statusCode: 200,
             message: "Tickets para el usuario obtenidos con éxito",
-            ...result
+            data: result
         });
     } catch (error) {
         next(error);
@@ -55,11 +56,11 @@ export const getTicketsByEvent = async(req, res, next)=>{
         const result = await ticketService.getTicketsByEvent(eventId, req.query);
         const ticketDTOs = result.data.map(ticket => new TicketDTO(ticket));
 
-        res.status(201).json({
-            status: "success",
+        return sendSuccess(res, {
+            statusCode: 200,
             message: "Tickets para el evento obtenidos con éxito",
             data: ticketDTOs
-        });
+        })
     } catch (error) {
         next(error);
     }

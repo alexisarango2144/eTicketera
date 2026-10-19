@@ -15,7 +15,14 @@ export class TicketDAO {
 
   async findByUser(userId, filter, { skip, limit, sort }) {
     return Ticket.find({ user: userId, ...filter })
-      .populate("event", "title date location")
+      .populate({
+        path: "event",
+        select: "title date location organizer",
+        populate: {
+          path: "organizer",
+          select: "first_name last_name email role",
+        },
+      })
       .sort(sort)
       .skip(skip)
       .limit(limit);  }

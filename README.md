@@ -17,7 +17,7 @@ API backend para la gestión de eventos, autenticación de usuarios y emisión d
 
 ## Requisitos previos
 
-- Node.js 18 o superior
+- Node.js 20.19 o superior
 - MongoDB local o Atlas
 - Un cliente HTTP para pruebas (Postman, Insomnia o curl)
 
@@ -71,6 +71,7 @@ eTicketera/
    ├─ dto
    │  ├─ event.dto.js
    │  ├─ tickets.dto.js
+   │  ├─ reference.dto.js
    │  └─ user.dto.js
    ├─ middlewares
    │  ├─ auth.mid.js
@@ -98,6 +99,7 @@ eTicketera/
    │  ├─ event.service.js
    │  └─ ticket.service.js
    └─ utils
+      ├─ api-response.js
       ├─ custom-error.js
       ├─ hash.js
       ├─ jwt.js
@@ -124,14 +126,39 @@ http://localhost:8080/api/events
 
 ---
 
+## Decisiones sobre DTOs y respuestas
+
+### `reference.dto.js`
+
+Las relaciones de MongoDB pueden llegar como un `ObjectId`, como una referencia sin poblar o como un documento poblado. `reference.dto.js` centraliza la obtención del identificador y permite que los DTOs manejen esos formatos sin exponer directamente objetos de Mongoose.
+
+Cuando una relación está poblada, el DTO correspondiente selecciona los campos que la API expone. Cuando no lo está, se devuelve únicamente su identificador. Esto mantiene las respuestas controladas y evita incluir accidentalmente propiedades internas del modelo.
+
+### `api-response.js`
+
+`api-response.js` centraliza la estructura de las respuestas exitosas para que los endpoints compartan el formato:
+
+```json
+{
+  "status": "success",
+  "message": "Descripción de la operación",
+  "data": {}
+}
+```
+
+## Respuestas
+Las respuestas exitosas usan `{ status, message, data }`. Según el endpoint, los datos se devuelven en `data` o junto con la información de paginación. Los errores se entregan al middleware de Express.
+
 ## Endpoints
 
-### 1) Health
+### Health
 
-#### GET /api/health
-Verifica que el servidor esté activo.
+| Método | Ruta | Descripción |
+| --- | --- | --- |
+| `GET` | `/api/health` | Comprueba que el servidor esté activo. |
 
-**Respuesta exitosa:**
+Respuesta:
+
 ```json
 {
   "status": "ok",
@@ -139,261 +166,182 @@ Verifica que el servidor esté activo.
 }
 ```
 
----
+### Sesiones
 
-### 2) Sessions / autenticación
+| Método | Ruta | Descripción |
+| --- | --- | --- |
+| `POST` | `/api/sessions/register` | Registra un usuario local. |
+| `POST` | `/api/sessions/login` | Inicia sesión local. |
+| `GET` | `/api/sessions/github` | Inicia autenticación con GitHub. |
+| `GET` | `/api/sessions/github/callback` | Callback OAuth de GitHub. |
+| `GET` | `/api/sessions/current` | Devuelve el usuario de la sesión actual. |
+| `POST` | `/api/sessions/logout` | Limpia la cookie de sesión. |
 
-#### POST /api/sessions/register
-Registra un nuevo usuario.
+Registro, `POST /api/sessions/register`:
 
-**Body:**
 ```json
 {
-  "first_name": "Alexis",
-  "last_name": "Herrera",
-  "email": "alexis@mail.com",
-  "password": "Password123"
+  "first_name": "Ada",
+  "last_name": "Ejemplo",
+  "email": "ada@example.com",
+  "password": "ClaveDePrueba123"
 }
 ```
 
-**Respuesta exitosa:**
+Registro exitoso, `201 Created`:
+
 ```json
 {
   "status": "success",
-  "payload": {
-    "id": "64d2c...",
-    "first_name": "Alexis",
-    "last_name": "Herrera",
-    "email": "alexis@mail.com",
-    "role": "user"
+  "message": "Usuario registrado correctamente",
+  "data": {
+    "user": {
+      "id": "ID_DEL_USUARIO",
+      "email": "usuario@example.com",
+      "role": "user"
+    },
+    "token": "JWT"
   }
 }
 ```
 
----
+Login, `POST /api/sessions/login`:
 
-#### POST /api/sessions/login
-Inicia sesión y crea el JWT, guardándolo en cookie.
-
-**Body:**
 ```json
 {
-  "email": "alexis@mail.com",
-  "password": "Password123"
+  "email": "ada@example.com",
+  "password": "ClaveDePrueba123"
 }
 ```
 
-**Respuesta exitosa:**
+Una autenticación exitosa establece la cookie HTTP-only `currentUser` y devuelve los datos de usuario y el token en `data`.
+
 ```json
 {
   "status": "success",
-  "message": "Autenticación exitosa"
-}
-```
-
----
-
-#### GET /api/sessions/github
-Redirige al flujo de autenticación con GitHub.
-
----
-
-#### GET /api/sessions/github/callback
-Callback de autenticación OAuth de GitHub.
-
----
-
-#### GET /api/sessions/current
-Devuelve el usuario autenticado actual.
-
-**Respuesta exitosa:**
-```json
-{
-  "status": "success",
-  "payload": {
-    "id": "64d2c...",
-    "email": "alexis@mail.com",
-    "role": "user"
+  "message": "Usuario autenticado",
+  "data": {
+    "user": {
+      "id": "ID_DEL_USUARIO",
+      "email": "usuario@example.com",
+      "role": "user"
+    },
+    "token": "JWT"
   }
 }
 ```
 
-**Si no está autenticado:**
+`GET /api/sessions/current` requiere autenticación. Su respuesta usa `data`:
+
+```json
+{
+  "status": "success",
+  "message": "Sesión activa para el usuario",
+  "data": {
+    "id": "ID_DEL_USUARIO",
+    "email": "ada@example.com",
+    "role": "user",
+    "first_name": "Ada",
+    "last_name": "Ejemplo"
+  }
+}
+```
+
+Sin autenticación, la colección registra 401 Unauthorized:
+
 ```json
 {
   "status": "error",
+  "code": "UNAUTHORIZED",
   "message": "No autenticado"
 }
 ```
 
----
+### Eventos
 
-#### POST /api/sessions/logout
-Cierra la sesión del usuario.
+| Método | Ruta | Acceso |
+| --- | --- | --- |
+| `GET` | `/api/events` | Público |
+| `GET` | `/api/events/:eventId` | Público |
+| `POST` | `/api/events` | `organizer` o `admin` |
+| `PUT` | `/api/events/:eventId` | `organizer` o `admin`; solo organizador propietario o admin |
+| `PATCH` | `/api/events/:eventId/status` | `organizer` o `admin`; solo organizador propietario o admin |
 
-**Respuesta exitosa:**
+La lista admite filtros y paginación mediante query parameters como `status`, `page` y `limit`.
+
+Ejemplo de creación, `POST /api/events`:
+
 ```json
 {
-  "status": "success",
-  "message": "Logout exitoso"
+  "title": "Encuentro de ejemplo",
+  "description": "Descripción del evento",
+  "category": "Comunidad",
+  "date": "2026-11-15",
+  "location": "Auditorio central",
+  "capacity": 100,
+  "price": 0
 }
 ```
 
----
+Para cambiar el estado, `PATCH /api/events/:eventId/status`:
 
-### 3) Events
-
-#### GET /api/events
-Obtiene todos los eventos.
-
-**Respuesta exitosa:**
 ```json
 {
-  "status": "success",
-  "payload": []
+  "status": "published"
 }
 ```
 
----
+Los estados permitidos son `draft`, `published`, `cancelled` y `finished`.
 
-#### GET /api/events/:eventId
-Obtiene un evento por su ID.
+Las respuestas de eventos devuelven el recurso en `data`. La lista devuelve además los metadatos de paginación con la siguiente estructura:
 
----
-
-#### POST /api/events
-Crea un nuevo evento. Requiere autenticación con rol `organizer` o `admin`.
-
-**Body ejemplo:**
-```json
-{
-  "title": "IX Simposio de Enfermería",
-  "description": "Simposio nacional de enfermería",
-  "category": "Enfermería",
-  "capacity": 300
-}
-```
-
-**Respuesta exitosa:**
 ```json
 {
   "status": "success",
-  "message": "Evento creado exitosamente",
-  "payload": {
-    "_id": "event_id",
-    "title": "IX Simposio de Enfermería",
-    "description": "Simposio nacional de enfermería",
-    "category": "Enfermería",
-    "capacity": 300
-  }
-}
-```
-
----
-
-#### PUT /api/events/:eventId
-Actualiza un evento existente. Requiere autenticación con rol `organizer` o `admin`.
-
----
-
-#### PATCH /api/events/:eventId/status
-Cambia el estado del evento. Requiere autenticación con rol `organizer` o `admin`.
-
----
-
-### 4) Tickets
-
-#### POST /api/tickets/event/:eventId/tickets
-Registra al usuario en un evento.
-
-**Respuesta exitosa:**
-```json
-{
-  "status": "success",
-  "message": "Inscripción realizada con éxito",
+  "message": "Eventos obtenidos con éxito",
   "data": {
-    "id": "ticket_id",
-    "event": "event_id",
-    "quantity": 1,
-    "status": "confirmed",
-    "reservationCode": "TK-XYZ123"
+    "items": [],
+    "page": 1,
+    "limit": 10,
+    "total": 0,
+    "totalPages": 0
   }
 }
 ```
 
----
+### Tickets
 
-#### GET /api/tickets/my-tickets
-Devuelve los tickets del usuario autenticado.
+| Método | Ruta | Acceso |
+| --- | --- | --- |
+| `POST` | `/api/tickets/event/:eventId/tickets` | Usuario autenticado |
+| `GET` | `/api/tickets/my-tickets` | Usuario autenticado |
+| `GET` | `/api/tickets/event/:eventId/tickets` | `organizer` o `admin` |
+| `PATCH` | `/api/tickets/:ticketId/cancel` | Usuario autenticado; sujeto a permisos sobre el ticket |
 
-**Respuesta exitosa:**
+Ejemplo de inscripción:
+
 ```json
 {
-  "status": "success",
-  "message": "Tickets para el usuario obtenidos con éxito",
-  "data": [],
-  "total": 0,
-  "page": 1,
-  "limit": 10,
-  "totalPages": 1
+  "quantity": 2
 }
 ```
 
----
-
-#### GET /api/tickets/event/:eventId/tickets
-Obtiene todos los tickets asociados a un evento. Requiere rol `organizer` o `admin`.
-
----
-
-#### PATCH /api/tickets/:ticketId/cancel
-Cancela la inscripción de un ticket.
-
----
+La inscripción devuelve el ticket en `data`. La ruta `GET /api/tickets/my-tickets` acepta parámetros de paginación y devuelve los resultados junto con sus metadatos. La ruta para consultar tickets de un evento devuelve los tickets en `data`.
 
 ## Roles
 
-Los roles más comunes en esta API son:
+- `user`: usuario estándar.
+- `organizer`: puede crear eventos y gestionar los propios.
+- `admin`: puede gestionar eventos y consultar tickets de eventos.
 
-- `user`
-- `organizer`
-- `admin`
+## Ejemplo con curl
 
-Algunas rutas están protegidas según el rol, por ejemplo:
-
-- Crear/actualizar/cambiar estado de eventos: `organizer` o `admin`
-- Ver tickets de un evento: `organizer` o `admin`
-
----
-
-## Ejemplo de uso con curl
-
-### Registro
 ```bash
-curl -X POST http://localhost:8080/api/sessions/register \
-  -H "Content-Type: application/json" \
-  -d '{
-    "first_name": "Alexis",
-    "last_name": "Herrera",
-    "email": "alexis@mail.com",
-    "password": "Password123"
-  }'
+curl http://localhost:8080/api/health
 ```
 
-### Login
-```bash
-curl -X POST http://localhost:8080/api/sessions/login \
-  -H "Content-Type: application/json" \
-  -d '{
-    "email": "alexis@mail.com",
-    "password": "Password123"
-  }'
-```
+Para endpoints protegidos, enviar el token de autenticación según la configuración del cliente. El login también entrega la cookie `currentUser`.
 
-### Obtener eventos
-```bash
-curl http://localhost:8080/api/events
-```
 
 ---
 

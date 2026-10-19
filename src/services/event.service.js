@@ -172,7 +172,7 @@ export class EventService {
     const eventDTOs = data.map((event) => new EventDTO(event));
 
     return {
-      data: eventDTOs,
+      items: eventDTOs,
       page: currentPage,
       limit: currentLimit,
       total,
@@ -267,6 +267,10 @@ export class EventService {
   }
 
   async changeStatus(id, status, user) {
+    if(!status) {
+      throw CustomError.badRequest("El campo status es obligatorio");
+    }
+
     const event = await this.getEventById(id);
 
     if (event.status === "cancelled") {
