@@ -2,13 +2,13 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import { Strategy as GitHubStrategy } from "passport-github2";
-import { UserDAO } from "../dao/users.dao.js";
 import { AuthService } from "../services/auth.service.js";
+import { UserRepository } from "../repositories/user.repository.js";
 
 import { isValidPassword } from "../utils/hash.js";
 
 const authService = new AuthService();
-const userDAO = new UserDAO();
+const userRepository = new UserRepository();
 
 // REGISTRO DE USUARIO
 
@@ -23,22 +23,16 @@ passport.use(
 
     async (req, email, password, done) => {
       try {
-        const { first_name, last_name } = req.body || {};
-
-        if (!first_name || !last_name || !email || !password) {
-          return done(null, false, {
-            message: "Todos los campos son obligatorios",
-          });
-        }
-
-        const newUser = await authService.register({
-          first_name,
-          last_name,
+        const payload = {
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
           email,
           password,
-        });
+        };
 
-        return done(null, newUser);
+        const result = await authService.register(payload);
+
+        return done(null, result);
       } catch (error) {
         if (error.code === "EMAIL_EXISTS") {
           return done(null, false, {
@@ -64,29 +58,7 @@ passport.use(
 
     async (email, password, done) => {
       try {
-        const normalizedEmail = email.trim().toLowerCase();
-
-        const user = await userDAO.findByEmail(normalizedEmail);
-
-        if (!user) {
-          return done(null, false, {
-            message: "Credenciales inválidas",
-          });
-        }
-
-        if (user.provider !== "local") {
-          return done(null, false, {
-            message: `Este usuario no se registró mediante el proveedor local. Por favor, inicia sesión usando el proveedor original.`,
-          });
-        }
-
-        const validPassword = await isValidPassword(password, user.password);
-
-        if (!validPassword) {
-          return done(null, false, {
-            message: "Credenciales inválidas",
-          });
-        }
+        const user = await authService.login(email, password);
 
         return done(null, user);
       } catch (error) {
@@ -186,7 +158,7 @@ passport.use(
     },
     async (jwt_payload, done) => {
       try {
-        const user = await userDAO.getById(jwt_payload.id);
+        const user = await userRepository.getById(jwt_payload.id);
 
         if (!user) {
           return done(null, false);

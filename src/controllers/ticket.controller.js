@@ -10,12 +10,10 @@ export const enroll = async (req, res, next) => {
 
         const ticket = await ticketService.enroll(req.user, eventId, quantity);
 
-        const ticketDTO = new TicketDTO(ticket);
-
         res.status(201).json({
             status: "success",
             message: "Inscripción realizada con éxito",
-            data: ticketDTO
+            data: ticket
         });
     } catch (error) {
         next(error)
@@ -25,13 +23,12 @@ export const enroll = async (req, res, next) => {
 export const cancelTicket = async(req, res, next)=>{
     try {
         const { ticketId } = req.params;
-        const cancelled = await ticketService.cancelTicket(req.user, ticketId);
-        const ticketDTO = new TicketDTO(cancelled);
+        const cancelledTicket = await ticketService.cancelTicket(req.user, ticketId);
 
         res.status(201).json({
             status: "success",
             message: `Ticket ${ticketId} cancelado correctamente`,
-            data: ticketDTO
+            data: cancelledTicket
         })
     } catch (error) {
         next(error)
@@ -55,8 +52,8 @@ export const getTicketsByUser = async(req, res, next)=>{
 export const getTicketsByEvent = async(req, res, next)=>{
     try {
         const { eventId } = req.params;
-        const tickets = await ticketService.getTicketsByEvent(eventId);
-        const ticketDTOs = tickets.map(ticket => new TicketDTO(ticket));
+        const result = await ticketService.getTicketsByEvent(eventId, req.query);
+        const ticketDTOs = result.data.map(ticket => new TicketDTO(ticket));
 
         res.status(201).json({
             status: "success",

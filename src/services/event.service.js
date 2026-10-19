@@ -13,26 +13,25 @@ export class EventService {
 
   validateObjectId(id) {
     if (!mongoose.isValidObjectId(id)) {
-      throw new CustomError(
-        "El identificador de evento proporcionado no es válido",
-        400,
+      throw CustomError.badRequest(
+        "El identificador de evento proporcionado no es válido"
       );
     }
   }
 
   validateCapacityAndPrice(data) {
     if (data.capacity !== undefined && Number(data.capacity) <= 0) {
-      throw new CustomError("La capacidad debe ser mayor a cero");
+      throw CustomError.badRequest("La capacidad debe ser mayor a cero");
     }
 
     if (data.price !== undefined && data.price < 0) {
-      throw new CustomError("El precio no puede ser negativo");
+      throw CustomError.badRequest("El precio no puede ser negativo");
     }
   }
 
   validateStatus(status) {
     if (status !== undefined && !VALID_STATUSES.includes(status)) {
-      throw new CustomError(
+      throw CustomError.badRequest(
         `El estado seleccionado no es válido. Los valores permitidos son: ${VALID_STATUSES.join(", ")}`,
       );
     }
@@ -51,17 +50,17 @@ export class EventService {
     } = data || {};
 
     if (!title || !description || !category || !date || !location) {
-      throw new CustomError("Faltan campos obligatorios", 400);
+      throw CustomError.badRequest("Faltan campos obligatorios");
     }
 
     const eventDate = new Date(date);
 
     if (Number.isNaN(eventDate.getTime())) {
-      throw new CustomError("La fecha del evento no es válida");
+      throw CustomError.badRequest("La fecha del evento no es válida");
     }
 
     if (eventDate <= new Date()) {
-      throw new CustomError(
+      throw CustomError.badRequest(
         "No se puee crear un evento con fecha anterior a la actual",
       );
     }
@@ -90,7 +89,7 @@ export class EventService {
     const event = await this.eventRepository.findById(id);
 
     if (!event) {
-      throw new CustomError("No se encontró el evento", 404);
+      throw CustomError.notFound("No se encontró el evento");
     }
 
     return new EventDTO(event);
@@ -125,7 +124,7 @@ export class EventService {
       if (dateFrom) {
         const from = new Date(dateFrom);
         if (Number.isNaN(from.getTime())) {
-          throw new CustomError("Error: dateFrom no es una fecha válida");
+          throw CustomError.badRequest("Error: dateFrom no es una fecha válida");
         }
         filter.date.$gte = from;
       }
@@ -133,7 +132,7 @@ export class EventService {
       if (dateTo) {
         const to = new Date(dateTo);
         if (Number.isNaN(to.getTime())) {
-          throw new CustomError("Error: dateTo no es una fecha válida");
+          throw CustomError.badRequest("Error: dateTo no es una fecha válida");
         }
         filter.date.$lte = to;
       }
@@ -149,7 +148,7 @@ export class EventService {
     const sortField = sort.startsWith("-") ? sort.slice(1) : sort;
 
     if (!allowedSortFields.includes(sortField)) {
-      throw new CustomError(
+      throw CustomError.badRequest(
         `Campo de ordenamiento no válido. Los campos permitidos son: ${allowedSortFields.join(", ")}`,
         400,
       );
@@ -173,7 +172,7 @@ export class EventService {
     const eventDTOs = data.map((event) => new EventDTO(event));
 
     return {
-      data,
+      data: eventDTOs,
       page: currentPage,
       limit: currentLimit,
       total,
@@ -191,20 +190,33 @@ export class EventService {
       : event.organizer.toString() === user._id.toString();
 
     if (!isOwner) {
-      throw new CustomError(
-        "No tienes permisos para modificar este evento",
-        403,
+      throw CustomError.forbidden(
+        "No tienes permisos para modificar este evento"
       );
     }
   }
 
   async updateEvent(id, data, user) {
+    const {
+      title,
+      description,
+      category,
+      date,
+      location,
+      capacity,
+      price,
+      status
+    } = data || {};
+
+    if (!title || !description || !category || !date || !location) {
+      throw CustomError.badRequest("Faltan campos obligatorios");
+    }
+
     const event = await this.getEventById(id);
 
     if (event.status === "cancelled") {
-      throw new CustomError(
-        "No se puede modificar el evento ya que se encuentra cancelado",
-        409,
+      throw CustomError.conflict(
+        "No se puede modificar el evento ya que se encuentra cancelado"
       );
     }
 
@@ -228,12 +240,25 @@ export class EventService {
       }
     }
 
+    if(updateData.date !== undefined){
+      const newDate = new Date(updateData.date);
+
+      if (Number.isNaN(newDate.getTime())) {
+        throw CustomError.badRequest("La fecha del evento no es válida");
+      }
+
+      if(newDate <= new Date()){
+        throw CustomError.badRequest("No se puede actualizar el evento a una fecha anterior a la actual");
+      }
+
+      updateData.date = newDate;
+    }
+
     this.validateCapacityAndPrice(updateData);
 
     if (Object.keys(updateData).length === 0) {
-      throw new CustomError(
-        "No se encontraron campos válidos para actualizar",
-        409,
+      throw CustomError.badRequest(
+        "No se encontraron campos válidos para actualizar"
       );
     }
 
@@ -245,9 +270,8 @@ export class EventService {
     const event = await this.getEventById(id);
 
     if (event.status === "cancelled") {
-      throw new CustomError(
-        "No se puede modificar el evento ya que se encuentra cancelado",
-        409,
+      throw CustomError.conflict(
+        "No se puede modificar el evento ya que se encuentra cancelado"
       );
     }
 
@@ -256,15 +280,15 @@ export class EventService {
     this.validateStatus(status);
 
     if (status === "published" && event.status === "finished") {
-      throw new CustomError("No se puede publicar un evento finalizado");
+      throw CustomError.badRequest("No se puede publicar un evento finalizado");
     }
 
     if (status === "published" && event.status === "cancelled") {
-      throw new CustomError("No se puede publicar un evento cancelado");
+      throw CustomError.badRequest("No se puede publicar un evento cancelado");
     }
 
     if (event.status === status) {
-      throw new CustomError(`El evento ta tiene status ${status}`);
+      throw CustomError.conflict(`El evento ya tiene el status ${status}`);
     }
 
     const updatedEvent = await this.eventRepository.updateById(id, { status });

@@ -1,19 +1,17 @@
+import { CustomError } from "../utils/custom-error.js";
+
 export const authorizeRoles = (...allowedRoles) => {
-    return (req, res, next)=>{
-        if(!req.user){
-            return res.status(401).json({
-                status: "error",
-                message: "Usuario no autenticado"
-            });
-        }
-
-        if(!allowedRoles.includes(req.user.role)){
-            return res.status(403).json({
-                status: "error", 
-                message: "No tienes permisos para realizar esta acción"
-            });
-        }
-
-        next();
+  return (req, res, next) => {
+    if (!req.user) {
+      throw CustomError.unauthorized("Usuario no autenticado");
     }
-}
+
+    if (!allowedRoles.includes(req.user.role)) {
+      throw CustomError.forbidden(
+        "No tienes permisos para realizar esta acción",
+      );
+    }
+
+    next();
+  };
+};

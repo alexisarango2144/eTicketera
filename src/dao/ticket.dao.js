@@ -33,6 +33,10 @@ export class TicketDAO {
   async count(userId, filter) {
     return Ticket.countDocuments({ user: userId || null, ...filter });
   }
+  
+  async countByEvent(eventId, filter) {
+    return Ticket.countDocuments({ event: eventId, ...filter });
+  }
 
   async sumReservedByEvent(eventId) {
     const result = await Ticket.aggregate([

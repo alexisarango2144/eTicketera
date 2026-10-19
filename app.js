@@ -3,8 +3,9 @@ import { connectDB } from "./src/config/database.js";
 import apiRouter from "./src/routes/index.js";
 import cookieParser from "cookie-parser";
 import passport from "./src/config/passport.config.js";
+import { CustomError as errorHandler} from "./src/utils/custom-error.js";
 
-export const app = express();
+const app = express();
 
 
 app.use(express.json());
@@ -26,4 +27,6 @@ app.use((req, res, next) => {
   });
 });
 
+app.use(errorHandler);
 
+export default app;

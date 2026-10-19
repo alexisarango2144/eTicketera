@@ -8,16 +8,15 @@ const authService = new AuthService();
 
 export const register = async (req, res, next) => {
   try {
-    const user = await authService.register(req.body);
-    const userDTO = new UserDTO(user);
+    const {user, token} = req.user;
     
     res.status(201).json({
       status: "success",
-      message: "Usuario registrado",
-      data: userDTO
+      message: "Usuario registrado correctamente",
+      data: {user, token}
     })
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -25,21 +24,9 @@ export const register = async (req, res, next) => {
 
 export const login = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-
-    if(!email || !password) {
-      return res.status(400).json({
-        status: "error",
-        message: "El email y contraseña son requeridos"
-      });
-    }
-
-    const result = await authService.login(email, password);
-
     const user = req.user;
-    const token = generateJWT(user);
 
-    res.cookie('currentUser', token, {
+    res.cookie('currentUser', req.user?.token, {
       httpOnly: true,
       maxAge: 3600000, // 60 * 60 * 1000
       sameSite: "lax",
@@ -49,7 +36,7 @@ export const login = async (req, res, next) => {
     res.json({
       status: "success",
       message: "Usuario autenticado",
-      data: {...result}
+      data: { ...user, token: req.user?.token }
     });
   } catch (error) {
     next(error);
@@ -80,7 +67,7 @@ export const githubCallback = async (req, res, next) => {
 
 // Current
 
-export const current = async (req, res) => {
+export const current = async (req, res, next) => {
   try {
     const user = req.user;
 
@@ -92,10 +79,7 @@ export const current = async (req, res) => {
       payload: userDTO
     });
   } catch (error) {
-    res.status(500).json({
-      status: "error",
-      message: "Error interno del servidor"
-    });
+    next(error);
   }
 };
 

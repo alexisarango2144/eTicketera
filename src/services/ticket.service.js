@@ -18,21 +18,21 @@ export class TicketService {
 
     validateObjectId(id) {
         if (!mongoose.isValidObjectId(id)) {
-            throw new CustomError("El ID de ticket proporcionado no es válido", 400);
+            throw CustomError.badRequest("El ID de ticket proporcionado no es válido", 400);
         }
     }
 
     validateQuantity(quantity){
         const value = Number(quantity);
         if(!Number.isInteger(value) || value < 1){
-            throw new CustomError("La cantidad de lugares debe ser mayor a 0");
+            throw CustomError.badRequest("La cantidad de lugares debe ser mayor a 0");
         }
         return value
     }
 
     validateStatus(status) {
         if (status !== undefined && !VALID_STATUSES.includes(status)) {
-          throw new CustomError(
+          throw CustomError.badRequest(
             `El estado seleccionado no es válido. Los valores permitidos son: ${VALID_STATUSES.join(", ")}`,
           );
         }
@@ -44,24 +44,24 @@ export class TicketService {
 
         const event = await this.eventRepository.findById(eventId);
         if(!event){
-            throw new CustomError("No se encontró el evento", 404);
+            throw CustomError.notFound("No se encontró el evento");
         }
 
         if(event.status !== "published"){
-            throw new CustomError("El evento no se encuentra disponible para inscribirse", 400);
+            throw CustomError.badRequest("El evento no se encuentra disponible para inscribirse");
         }
 
         if(event.date < new Date()){
-            throw new CustomError("El evento ya finalizó", 400);
+            throw CustomError.badRequest("El evento ya finalizó");
         }
 
         const existingTicket = await this.ticketRepository.findByUserAndEvent(user._id, event._id, "confirmed");
 
-        if(existingTicket) throw new CustomError("El usuario ya tiene un ticket confirmado para el evento", 409);
+        if(existingTicket) throw CustomError.conflict("El usuario ya tiene un ticket confirmado para el evento");
 
         const reservedEvent = await this.eventRepository.reserveSeats(event._id, seats)
         if(!reservedEvent){
-            throw new CustomError("El evento ya no tiene cupos disponibles");
+            throw CustomError.badRequest("El evento ya no tiene cupos disponibles");
         }
 
         let ticket = null;
@@ -78,9 +78,11 @@ export class TicketService {
             throw error;
         }
 
+        const ticketDTO = new TicketDTO(ticket);
+
         await this.emailService.sendTicketConfirmation(user, event, ticket);
 
-        return ticket;
+        return  ticketDTO;
     }
 
     async getTicketsByUser(user, query) {
@@ -105,7 +107,7 @@ export class TicketService {
         const sortField = sort.startsWith("-") ? sort.slice(1) : sort;
 
         if(!allowedSortFields.includes(sortField)){
-            throw new CustomError(`El campo de ordenamiento no es válido. Los valores permitidos son: ${allowedSortFields.join(", ")}`, 400);
+            throw CustomError.badRequest(`El campo de ordenamiento no es válido. Los valores permitidos son: ${allowedSortFields.join(", ")}`);
         }
 
         const sortObject = {
@@ -134,10 +136,49 @@ export class TicketService {
         }
     }
 
-    async getTicketsByEvent(eventId){
+    async getTicketsByEvent(eventId, query){
         this.validateObjectId(eventId);
-        
-        return this.ticketRepository.findByEvent(eventId);
+
+        const {
+            page = 1,
+            limit = 10,
+            sort = "createdAt"
+        } = query || {};
+
+        const currentPage = Math.max(Number(page) || 1, 1);
+        const currentLimit = Math.min(Math.max(Number(limit) || 10, 1), 100);
+
+        const allowedSortFields = ["createdAt", "status"];
+        const sortField = sort.startsWith("-") ? sort.slice(1) : sort;
+
+        if(!allowedSortFields.includes(sortField)){
+            throw CustomError.badRequest(`El campo de ordenamiento no es válido. Los valores permitidos son: ${allowedSortFields.join(", ")}`);
+        }
+
+        const sortObject = {
+            [sortField]: sort.startsWith("-") ? -1 : 1
+        };
+
+        const skip = (currentPage - 1) * currentLimit;
+
+        const [data, total] = await Promise.all([
+            this.ticketRepository.findByEvent(eventId, {
+                skip,
+                limit: currentLimit,
+                sort: sortObject
+            }),
+            this.ticketRepository.countByEvent(eventId)
+        ]);
+
+        const ticketDTOs = data.map((ticket) => new TicketDTO(ticket));
+
+        return {
+            data: ticketDTOs,
+            total,
+            page: currentPage,
+            limit: currentLimit,
+            totalPages: Math.ceil(total / currentLimit)
+        }
     }
 
     async cancelTicket(user, ticketId){
@@ -146,7 +187,7 @@ export class TicketService {
         const existingTicket = await this.ticketRepository.findById(ticketId);
 
         if(!existingTicket){
-            throw new CustomError("Ticket no encontrado", 404);
+            throw CustomError.notFound("Ticket no encontrado");
         }
 
         const isAdmin = user.role === "admin";
@@ -154,7 +195,7 @@ export class TicketService {
         const isOwner = ticketUserId === user._id.toString();
 
         if(!isAdmin && !isOwner){
-            throw new CustomError("No tienes permisos para cancelar este ticket", 403);
+            throw CustomError.forbidden("No tienes permisos para cancelar este ticket");
         }
 
         existingTicket.status = "cancelled";

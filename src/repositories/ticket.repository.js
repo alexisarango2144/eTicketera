@@ -26,7 +26,7 @@ export class TicketRepository{
     }
 
     save(ticket){
-        return ticket.save(ticket);
+        return this.dao.save(ticket);
     }
 
     sumReservedByEvent(eventId){
@@ -35,5 +35,9 @@ export class TicketRepository{
 
     count(userId, filter){
         return this.dao.count(userId, filter);
+    }
+    
+    countByEvent(eventId, filter){
+        return this.dao.countByEvent(eventId, filter);
     }
 }

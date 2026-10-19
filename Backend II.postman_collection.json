@@ -1,0 +1,2562 @@
+{
+  "info": {
+    "_exporter_id": "42763644",
+    "_postman_id": "99324e09-49ed-4ef4-8cef-f54c7f506486",
+    "name": "Backend II",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "item": [
+        {
+          "name": "Crear evento",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\r\n    \"title\":\"\",\r\n    \"description\":\"Aniversario número 4 de Alexis\",\r\n    \"category\":\"Aniversarios\",\r\n    \"date\":\"2026/10/19\",\r\n    \"location\": \"Mi casa\",\r\n    \"capacity\": 30,\r\n    \"price\": 0\r\n}"
+            },
+            "header": [],
+            "method": "POST",
+            "url": {
+              "host": [
+                "localhost"
+              ],
+              "path": [
+                "api",
+                "events",
+                ""
+              ],
+              "port": "8080",
+              "raw": "localhost:8080/api/events/"
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "html",
+              "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>CustomError: No tienes permisos para realizar esta acción<br> &nbsp; &nbsp;at CustomError.forbidden (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/utils/custom-error.js:26:12)<br> &nbsp; &nbsp;at file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/middlewares/authorization.mid.js:10:25<br> &nbsp; &nbsp;at Layer.handleRequest (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\layer.js:152:17)<br> &nbsp; &nbsp;at next (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\route.js:157:13)<br> &nbsp; &nbsp;at complete (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport\\lib\\middleware\\authenticate.js:280:13)<br> &nbsp; &nbsp;at C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport\\lib\\middleware\\authenticate.js:287:15<br> &nbsp; &nbsp;at pass (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport\\lib\\authenticator.js:446:14)<br> &nbsp; &nbsp;at Authenticator.transformAuthInfo (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport\\lib\\authenticator.js:468:5)<br> &nbsp; &nbsp;at C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport\\lib\\middleware\\authenticate.js:284:22<br> &nbsp; &nbsp;at req.login.req.logIn (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport\\lib\\http\\request.js:44:13)</pre>\n</body>\n</html>\n",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'none'"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "content-type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "1638"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 02:41:33 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Crear evento Forbidden",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"title\":\"Aniversario de Milena\",\r\n    \"description\":\"Aniversario número 4 de Alexis\",\r\n    \"category\":\"Aniversarios\",\r\n    \"date\":\"2026/10/19\",\r\n    \"location\": \"Mi casa\",\r\n    \"capacity\": 30,\r\n    \"price\": 0\r\n}"
+                },
+                "header": [],
+                "method": "POST",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "events",
+                    ""
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/events/"
+                }
+              },
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"status\": \"success\",\n  \"message\": \"Evento creado con éxito\",\n  \"data\": {\n    \"id\": \"6ad58467a1f7cbf0a651aa57\",\n    \"title\": \"Aniversario de Milena\",\n    \"description\": \"Aniversario número 4 de Alexis\",\n    \"category\": \"Aniversarios\",\n    \"date\": \"2026-10-19T05:00:00.000Z\",\n    \"location\": \"Mi casa\",\n    \"price\": 0,\n    \"capacity\": 30,\n    \"organizer\": \"6ad5812d6d2ff568c27d4c4a\",\n    \"status\": \"draft\"\n  }\n}",
+              "code": 201,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "339"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"153-xrsE599qCeJO/8YcH0ziy9FyL5w\""
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 02:46:00 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Crear evento Success",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"title\":\"Aniversario de Milena\",\r\n    \"description\":\"Aniversario número 4 de Alexis\",\r\n    \"category\":\"Aniversarios\",\r\n    \"date\":\"2026/10/19\",\r\n    \"location\": \"Mi casa\",\r\n    \"capacity\": 30,\r\n    \"price\": 0\r\n}"
+                },
+                "header": [],
+                "method": "POST",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "events",
+                    ""
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/events/"
+                }
+              },
+              "status": "Created"
+            },
+            {
+              "_postman_previewlanguage": "html",
+              "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>CustomError: Faltan campos obligatorios<br> &nbsp; &nbsp;at CustomError.badRequest (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/utils/custom-error.js:18:12)<br> &nbsp; &nbsp;at EventService.createEvent (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/services/event.service.js:53:25)<br> &nbsp; &nbsp;at createEvent (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/controllers/event.controller.js:7:38)<br> &nbsp; &nbsp;at Layer.handleRequest (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\layer.js:152:17)<br> &nbsp; &nbsp;at next (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\route.js:157:13)<br> &nbsp; &nbsp;at file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/middlewares/authorization.mid.js:15:5<br> &nbsp; &nbsp;at Layer.handleRequest (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\layer.js:152:17)<br> &nbsp; &nbsp;at next (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\route.js:157:13)<br> &nbsp; &nbsp;at complete (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport\\lib\\middleware\\authenticate.js:280:13)<br> &nbsp; &nbsp;at C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport\\lib\\middleware\\authenticate.js:287:15</pre>\n</body>\n</html>\n",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'none'"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "content-type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "1600"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 02:46:25 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Crear evento Bad request",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"title\":\"\",\r\n    \"description\":\"Aniversario número 4 de Alexis\",\r\n    \"category\":\"Aniversarios\",\r\n    \"date\":\"2026/10/19\",\r\n    \"location\": \"Mi casa\",\r\n    \"capacity\": 30,\r\n    \"price\": 0\r\n}"
+                },
+                "header": [],
+                "method": "POST",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "events",
+                    ""
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/events/"
+                }
+              },
+              "status": "Bad Request"
+            }
+          ]
+        },
+        {
+          "name": "Editar status de evento",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\r\n    \"status\":\"published\"\r\n}"
+            },
+            "header": [],
+            "method": "PATCH",
+            "url": {
+              "host": [
+                "localhost"
+              ],
+              "path": [
+                "api",
+                "events",
+                "6aae9d395b09893290def65b",
+                "status"
+              ],
+              "port": "8080",
+              "raw": "localhost:8080/api/events/6aae9d395b09893290def65b/status"
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "html",
+              "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>CustomError: No tienes permisos para modificar este evento<br> &nbsp; &nbsp;at CustomError.forbidden (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/utils/custom-error.js:26:12)<br> &nbsp; &nbsp;at EventService.assertCanManage (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/services/event.service.js:193:25)<br> &nbsp; &nbsp;at EventService.changeStatus (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/services/event.service.js:263:16)<br> &nbsp; &nbsp;at process.processTicksAndRejections (node:internal/process/task_queues:105:5)<br> &nbsp; &nbsp;at async changeEventStatus (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/controllers/event.controller.js:76:19)</pre>\n</body>\n</html>\n",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'none'"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "content-type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "914"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 02:43:49 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Editar status de evento Forbidden",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"status\":\"published\"\r\n}"
+                },
+                "header": [],
+                "method": "PATCH",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "events",
+                    "6aaea9859e9c3d6756436461",
+                    "status"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/events/6aaea9859e9c3d6756436461/status"
+                }
+              },
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"status\": \"success\",\n  \"message\": \"Estado del evento actualizado\",\n  \"data\": {\n    \"id\": \"6ad58467a1f7cbf0a651aa57\",\n    \"title\": \"Aniversario de Milena\",\n    \"description\": \"Aniversario número 4 de Alexis\",\n    \"category\": \"Aniversarios\",\n    \"date\": \"2026-10-19T05:00:00.000Z\",\n    \"location\": \"Mi casa\",\n    \"price\": 0,\n    \"capacity\": 30,\n    \"organizer\": {\n      \"_id\": \"6ad5812d6d2ff568c27d4c4a\",\n      \"first_name\": \"Alex\",\n      \"last_name\": \"Arango\",\n      \"email\": \"test2@mail.org\",\n      \"role\": \"organizer\"\n    },\n    \"status\": \"published\"\n  }\n}",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "441"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"1b9-OKHQ5RePWnSa4NYA13PQQPgmRik\""
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 02:48:19 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Editar status de evento Success",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"status\":\"published\"\r\n}"
+                },
+                "header": [],
+                "method": "PATCH",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "events",
+                    "{{eventId}}",
+                    "status"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/events/{{eventId}}/status"
+                }
+              },
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "html",
+              "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>CustomError: El estado seleccionado no es válido. Los valores permitidos son: draft, published, cancelled, finished<br> &nbsp; &nbsp;at CustomError.badRequest (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/utils/custom-error.js:18:12)<br> &nbsp; &nbsp;at EventService.validateStatus (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/services/event.service.js:34:25)<br> &nbsp; &nbsp;at EventService.changeStatus (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/services/event.service.js:280:10)<br> &nbsp; &nbsp;at process.processTicksAndRejections (node:internal/process/task_queues:105:5)<br> &nbsp; &nbsp;at async changeEventStatus (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/controllers/event.controller.js:76:19)</pre>\n</body>\n</html>\n",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'none'"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "content-type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "971"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 02:55:39 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Editar status de evento Bad request",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"status\":\"dart\"\r\n}"
+                },
+                "header": [],
+                "method": "PATCH",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "events",
+                    "{{eventId}}",
+                    "status"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/events/{{eventId}}/status"
+                }
+              },
+              "status": "Bad Request"
+            }
+          ]
+        },
+        {
+          "name": "Editar evento",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\r\n    \"title\":\"\",\r\n    \"description\":\"Aniversario laboral número 4 de Alexis\",\r\n    \"category\":\"Aniversarios Corporativos\",\r\n    \"date\":\"2026/10/24\",\r\n    \"location\": \"Mi oficina\",\r\n    \"capacity\": 20,\r\n    \"price\": 10000\r\n}"
+            },
+            "header": [],
+            "method": "PUT",
+            "url": {
+              "host": [
+                "localhost"
+              ],
+              "path": [
+                "api",
+                "events",
+                "{{eventId}}"
+              ],
+              "port": "8080",
+              "raw": "localhost:8080/api/events/{{eventId}}"
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "html",
+              "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>CustomError: No tienes permisos para modificar este evento<br> &nbsp; &nbsp;at CustomError.forbidden (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/utils/custom-error.js:26:12)<br> &nbsp; &nbsp;at EventService.assertCanManage (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/services/event.service.js:193:25)<br> &nbsp; &nbsp;at EventService.updateEvent (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/services/event.service.js:208:16)<br> &nbsp; &nbsp;at process.processTicksAndRejections (node:internal/process/task_queues:105:5)<br> &nbsp; &nbsp;at async updateEvent (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/controllers/event.controller.js:49:19)</pre>\n</body>\n</html>\n",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'none'"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "content-type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "907"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 02:51:13 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Editar evento Forbidden",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"title\":\"Aniversario de Alexis Herrera\",\r\n    \"description\":\"Aniversario laboral número 4 de Alexis\",\r\n    \"category\":\"Aniversarios Corporativos\",\r\n    \"date\":\"2026/10/24\",\r\n    \"location\": \"Mi oficina\",\r\n    \"capacity\": 20,\r\n    \"price\": 10000\r\n}"
+                },
+                "header": [],
+                "method": "PUT",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "events",
+                    "{{eventId}}"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/events/{{eventId}}"
+                }
+              },
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"status\": \"success\",\n  \"message\": \"Evento actualizado con éxito\",\n  \"data\": {\n    \"id\": \"6ad58467a1f7cbf0a651aa57\",\n    \"title\": \"Aniversario de Alexis Herrera\",\n    \"description\": \"Aniversario laboral número 4 de Alexis\",\n    \"category\": \"Aniversarios Corporativos\",\n    \"date\": \"2026-10-24T05:00:00.000Z\",\n    \"location\": \"Mi oficina\",\n    \"price\": 10000,\n    \"capacity\": 20,\n    \"organizer\": {\n      \"_id\": \"6ad5812d6d2ff568c27d4c4a\",\n      \"first_name\": \"Alex\",\n      \"last_name\": \"Arango\",\n      \"email\": \"test2@mail.org\",\n      \"role\": \"organizer\"\n    },\n    \"status\": \"published\"\n  }\n}",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "477"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"1dd-oyTFXp5UHRdjzMJj3HENwpu8EBw\""
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 02:52:10 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Editar evento Success",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"title\":\"Aniversario de Alexis Herrera\",\r\n    \"description\":\"Aniversario laboral número 4 de Alexis\",\r\n    \"category\":\"Aniversarios Corporativos\",\r\n    \"date\":\"2026/10/24\",\r\n    \"location\": \"Mi oficina\",\r\n    \"capacity\": 20,\r\n    \"price\": 10000\r\n}"
+                },
+                "header": [],
+                "method": "PUT",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "events",
+                    "{{eventId}}"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/events/{{eventId}}"
+                }
+              },
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "html",
+              "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>CustomError: Faltan campos obligatorios<br> &nbsp; &nbsp;at CustomError.badRequest (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/utils/custom-error.js:18:12)<br> &nbsp; &nbsp;at EventService.updateEvent (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/services/event.service.js:212:25)<br> &nbsp; &nbsp;at updateEvent (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/controllers/event.controller.js:49:38)<br> &nbsp; &nbsp;at Layer.handleRequest (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\layer.js:152:17)<br> &nbsp; &nbsp;at next (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\route.js:157:13)<br> &nbsp; &nbsp;at file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/middlewares/authorization.mid.js:15:5<br> &nbsp; &nbsp;at Layer.handleRequest (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\layer.js:152:17)<br> &nbsp; &nbsp;at next (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\route.js:157:13)<br> &nbsp; &nbsp;at complete (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport\\lib\\middleware\\authenticate.js:280:13)<br> &nbsp; &nbsp;at C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport\\lib\\middleware\\authenticate.js:287:15</pre>\n</body>\n</html>\n",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'none'"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "content-type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "1602"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 02:54:50 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Editar evento Bad request",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"title\":\"\",\r\n    \"description\":\"Aniversario laboral número 4 de Alexis\",\r\n    \"category\":\"Aniversarios Corporativos\",\r\n    \"date\":\"2026/10/24\",\r\n    \"location\": \"Mi oficina\",\r\n    \"capacity\": 20,\r\n    \"price\": 10000\r\n}"
+                },
+                "header": [],
+                "method": "PUT",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "events",
+                    "{{eventId}}"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/events/{{eventId}}"
+                }
+              },
+              "status": "Bad Request"
+            }
+          ]
+        },
+        {
+          "name": "Obtener eventos",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": ""
+            },
+            "header": [],
+            "method": "GET",
+            "url": {
+              "host": [
+                "localhost"
+              ],
+              "path": [
+                "api",
+                "events"
+              ],
+              "port": "8080",
+              "query": [
+                {
+                  "key": "status",
+                  "value": "published"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ],
+              "raw": "localhost:8080/api/events?status=published&page=1&limit=5"
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"status\": \"success\",\n  \"message\": \"Eventos obtenidos con éxito\",\n  \"data\": [\n    {\n      \"id\": \"6aaea97f9e9c3d6756436460\",\n      \"title\": \"Aniversario de Valentina\",\n      \"description\": \"Aniversario número 4 de Alexis\",\n      \"category\": \"Aniversarios\",\n      \"date\": \"2026-10-19T05:00:00.000Z\",\n      \"location\": \"Mi casa\",\n      \"price\": 0,\n      \"capacity\": 30,\n      \"organizer\": {\n        \"_id\": \"6aae941c0a5ccc275488b37a\",\n        \"first_name\": \"Carlos\",\n        \"last_name\": \"Lopez\",\n        \"email\": \"organizer@example.com\",\n        \"role\": \"organizer\"\n      },\n      \"status\": \"draft\"\n    },\n    {\n      \"id\": \"6aaea9859e9c3d6756436461\",\n      \"title\": \"Aniversario de Milena\",\n      \"description\": \"Aniversario número 4 de Alexis\",\n      \"category\": \"Aniversarios\",\n      \"date\": \"2026-10-19T05:00:00.000Z\",\n      \"location\": \"Mi casa\",\n      \"price\": 0,\n      \"capacity\": 30,\n      \"organizer\": {\n        \"_id\": \"6aae941c0a5ccc275488b37b\",\n        \"first_name\": \"Diego\",\n        \"last_name\": \"Perez\",\n        \"email\": \"organizer2@example.com\",\n        \"role\": \"organizer\"\n      },\n      \"status\": \"published\"\n    },\n    {\n      \"id\": \"6aae9d395b09893290def65b\",\n      \"title\": \"Aniversario de Alexis Herrera\",\n      \"description\": \"Aniversario laboral número 4 de Alexis\",\n      \"category\": \"Aniversarios Corporativos\",\n      \"date\": \"2026-10-24T05:00:00.000Z\",\n      \"location\": \"Mi oficina\",\n      \"price\": 10000,\n      \"capacity\": 20,\n      \"organizer\": {\n        \"_id\": \"6aae941c0a5ccc275488b37c\",\n        \"first_name\": \"Elena\",\n        \"last_name\": \"Diaz\",\n        \"email\": \"admin@example.com\",\n        \"role\": \"admin\"\n      },\n      \"status\": \"published\"\n    },\n    {\n      \"id\": \"6ad58467a1f7cbf0a651aa57\",\n      \"title\": \"\",\n      \"description\": \"Aniversario laboral número 4 de Alexis\",\n      \"category\": \"Aniversarios Corporativos\",\n      \"date\": \"2026-10-24T05:00:00.000Z\",\n      \"location\": \"Mi oficina\",\n      \"price\": 10000,\n      \"capacity\": 20,\n      \"organizer\": {\n        \"_id\": \"6ad5812d6d2ff568c27d4c4a\",\n        \"first_name\": \"Alex\",\n        \"last_name\": \"Arango\",\n        \"email\": \"test2@mail.org\",\n        \"role\": \"organizer\"\n      },\n      \"status\": \"published\"\n    }\n  ],\n  \"page\": 1,\n  \"limit\": 10,\n  \"total\": 4,\n  \"totalPages\": 1\n}",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "1659"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"67b-UaXxuXdDi8z2TnS0Mu5p3P22YOs\""
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 02:56:24 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Obtener eventos All",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": ""
+                },
+                "header": [],
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "events"
+                  ],
+                  "port": "8080",
+                  "query": [
+                    {
+                      "disabled": true,
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "disabled": true,
+                      "key": "limit",
+                      "value": "2"
+                    }
+                  ],
+                  "raw": "localhost:8080/api/events"
+                }
+              },
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"status\": \"success\",\n  \"message\": \"Eventos obtenidos con éxito\",\n  \"data\": [\n    {\n      \"id\": \"6aaea97f9e9c3d6756436460\",\n      \"title\": \"Aniversario de Valentina\",\n      \"description\": \"Aniversario número 4 de Alexis\",\n      \"category\": \"Aniversarios\",\n      \"date\": \"2026-10-19T05:00:00.000Z\",\n      \"location\": \"Mi casa\",\n      \"price\": 0,\n      \"capacity\": 30,\n      \"organizer\": {\n        \"_id\": \"6aae941c0a5ccc275488b37a\",\n        \"first_name\": \"Carlos\",\n        \"last_name\": \"Lopez\",\n        \"email\": \"organizer@example.com\",\n        \"role\": \"organizer\"\n      },\n      \"status\": \"draft\"\n    },\n    {\n      \"id\": \"6aaea9859e9c3d6756436461\",\n      \"title\": \"Aniversario de Milena\",\n      \"description\": \"Aniversario número 4 de Alexis\",\n      \"category\": \"Aniversarios\",\n      \"date\": \"2026-10-19T05:00:00.000Z\",\n      \"location\": \"Mi casa\",\n      \"price\": 0,\n      \"capacity\": 30,\n      \"organizer\": {\n        \"_id\": \"6aae941c0a5ccc275488b37b\",\n        \"first_name\": \"Diego\",\n        \"last_name\": \"Perez\",\n        \"email\": \"organizer2@example.com\",\n        \"role\": \"organizer\"\n      },\n      \"status\": \"published\"\n    }\n  ],\n  \"page\": 1,\n  \"limit\": 2,\n  \"total\": 4,\n  \"totalPages\": 2\n}",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "873"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"369-kU26Ca5qRo1ea5IALNOY1ZVKWh0\""
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 02:56:43 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Obtener eventos Limited",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": ""
+                },
+                "header": [],
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "events"
+                  ],
+                  "port": "8080",
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "2"
+                    }
+                  ],
+                  "raw": "localhost:8080/api/events?page=1&limit=2"
+                }
+              },
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"status\": \"success\",\n  \"message\": \"Eventos obtenidos con éxito\",\n  \"data\": [\n    {\n      \"id\": \"6aae9d395b09893290def65b\",\n      \"title\": \"Aniversario de Alexis Herrera\",\n      \"description\": \"Aniversario laboral número 4 de Alexis\",\n      \"category\": \"Aniversarios Corporativos\",\n      \"date\": \"2026-10-24T05:00:00.000Z\",\n      \"location\": \"Mi oficina\",\n      \"price\": 10000,\n      \"capacity\": 20,\n      \"organizer\": {\n        \"_id\": \"6aae941c0a5ccc275488b37c\",\n        \"first_name\": \"Elena\",\n        \"last_name\": \"Diaz\",\n        \"email\": \"admin@example.com\",\n        \"role\": \"admin\"\n      },\n      \"status\": \"published\"\n    },\n    {\n      \"id\": \"6ad58467a1f7cbf0a651aa57\",\n      \"title\": \"\",\n      \"description\": \"Aniversario laboral número 4 de Alexis\",\n      \"category\": \"Aniversarios Corporativos\",\n      \"date\": \"2026-10-24T05:00:00.000Z\",\n      \"location\": \"Mi oficina\",\n      \"price\": 10000,\n      \"capacity\": 20,\n      \"organizer\": {\n        \"_id\": \"6ad5812d6d2ff568c27d4c4a\",\n        \"first_name\": \"Alex\",\n        \"last_name\": \"Arango\",\n        \"email\": \"test2@mail.org\",\n        \"role\": \"organizer\"\n      },\n      \"status\": \"published\"\n    }\n  ],\n  \"page\": 2,\n  \"limit\": 2,\n  \"total\": 4,\n  \"totalPages\": 2\n}",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "899"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"383-Sn4pCbTkZXCmv3CP+P0vU8cV2sk\""
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 02:57:02 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Obtener eventos Paginated",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": ""
+                },
+                "header": [],
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "events"
+                  ],
+                  "port": "8080",
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "2"
+                    }
+                  ],
+                  "raw": "localhost:8080/api/events?page=2&limit=2"
+                }
+              },
+              "status": "OK"
+            }
+          ]
+        },
+        {
+          "name": "Obtener evento",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": ""
+            },
+            "header": [],
+            "method": "GET",
+            "url": {
+              "host": [
+                "localhost"
+              ],
+              "path": [
+                "api",
+                "events",
+                "{{eventId}}"
+              ],
+              "port": "8080",
+              "raw": "localhost:8080/api/events/{{eventId}}"
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"status\": \"success\",\n  \"message\": \"Evento obtenido con éxito\",\n  \"data\": {\n    \"id\": \"6aae9d395b09893290def65b\",\n    \"title\": \"Aniversario de Alexis Herrera\",\n    \"description\": \"Aniversario laboral número 4 de Alexis\",\n    \"category\": \"Aniversarios Corporativos\",\n    \"date\": \"2026-10-24T05:00:00.000Z\",\n    \"location\": \"Mi oficina\",\n    \"price\": 10000,\n    \"capacity\": 20,\n    \"organizer\": {\n      \"_id\": \"6aae941c0a5ccc275488b37c\",\n      \"first_name\": \"Elena\",\n      \"last_name\": \"Diaz\",\n      \"email\": \"admin@example.com\",\n      \"role\": \"admin\"\n    },\n    \"status\": \"published\"\n  }\n}",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "472"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"1d8-mmF+qrHDbh8gc772IynikB61mlc\""
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 02:57:32 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Obtener evento",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": ""
+                },
+                "header": [],
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "events",
+                    "6aae9d395b09893290def65b"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/events/6aae9d395b09893290def65b"
+                }
+              },
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "html",
+              "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>CustomError: El identificador de evento proporcionado no es válido<br> &nbsp; &nbsp;at CustomError.badRequest (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/utils/custom-error.js:18:12)<br> &nbsp; &nbsp;at EventService.validateObjectId (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/services/event.service.js:16:25)<br> &nbsp; &nbsp;at EventService.getEventById (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/services/event.service.js:87:10)<br> &nbsp; &nbsp;at getEventById (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/controllers/event.controller.js:35:38)<br> &nbsp; &nbsp;at Layer.handleRequest (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\layer.js:152:17)<br> &nbsp; &nbsp;at next (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\route.js:157:13)<br> &nbsp; &nbsp;at Route.dispatch (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\route.js:117:3)<br> &nbsp; &nbsp;at handle (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\index.js:435:11)<br> &nbsp; &nbsp;at Layer.handleRequest (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\layer.js:152:17)<br> &nbsp; &nbsp;at C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\index.js:295:15</pre>\n</body>\n</html>\n",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'none'"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "content-type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "1616"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 02:58:18 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Obtener evento Bad request",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": ""
+                },
+                "header": [],
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "events",
+                    "gvbfdbd"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/events/gvbfdbd"
+                }
+              },
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "html",
+              "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>CustomError: No se encontró el evento<br> &nbsp; &nbsp;at CustomError.notFound (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/utils/custom-error.js:30:12)<br> &nbsp; &nbsp;at EventService.getEventById (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/services/event.service.js:92:25)<br> &nbsp; &nbsp;at process.processTicksAndRejections (node:internal/process/task_queues:105:5)<br> &nbsp; &nbsp;at async getEventById (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/controllers/event.controller.js:35:19)</pre>\n</body>\n</html>\n",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'none'"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "content-type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "725"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 02:58:45 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Obtener evento Not found",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": ""
+                },
+                "header": [],
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "events",
+                    "{{eventId}}"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/events/{{eventId}}"
+                }
+              },
+              "status": "Not Found"
+            }
+          ]
+        }
+      ],
+      "name": "Events"
+    },
+    {
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\r\n    \"first_name\":\"Alex\",\r\n    \"last_name\":\"Herrera\",\r\n    \"email\":\"emailalex2@example.org\",\r\n    \"password\":\"password1\"\r\n}"
+            },
+            "header": [],
+            "method": "POST",
+            "url": {
+              "host": [
+                "localhost"
+              ],
+              "path": [
+                "api",
+                "sessions",
+                "register"
+              ],
+              "port": "8080",
+              "raw": "localhost:8080/api/sessions/register"
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"status\": \"success\",\n  \"message\": \"Usuario registrado correctamente\",\n  \"data\": {\n    \"user\": {\n      \"id\": \"6ab9828b135b6ad16d99ef35\",\n      \"email\": \"emailalexis20@example.org\",\n      \"role\": \"user\"\n    },\n    \"token\": \"{{json_web_token_0f7d}}\"\n  }\n}",
+              "code": 201,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "413"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"19d-8uSFom0kb9tl0uHauiUq2O9ULx0\""
+                },
+                {
+                  "key": "date",
+                  "value": "Sun, 27 Sep 2026 20:54:53 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Register success",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"first_name\":\"Alexis\",\r\n    \"last_name\":\"Herrera\",\r\n    \"email\":\"emailalexis20@example.org\",\r\n    \"password\":\"password123\"\r\n}"
+                },
+                "header": [],
+                "method": "POST",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "sessions",
+                    "register"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/sessions/register"
+                }
+              },
+              "status": "Created"
+            },
+            {
+              "_postman_previewlanguage": "html",
+              "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>CustomError: El correo electrónico proporcionado ya se encuentra registrado<br> &nbsp; &nbsp;at AuthService.register (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/services/auth.service.js:53:13)<br> &nbsp; &nbsp;at process.processTicksAndRejections (node:internal/process/task_queues:105:5)<br> &nbsp; &nbsp;at async Strategy._verify (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/config/passport.config.js:33:24)</pre>\n</body>\n</html>\n",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'none'"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "content-type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "606"
+                },
+                {
+                  "key": "date",
+                  "value": "Sun, 27 Sep 2026 20:58:01 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Register duplicated email",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"first_name\":\"Alexis\",\r\n    \"last_name\":\"Herrera\",\r\n    \"email\":\"emailalexis20@example.org\",\r\n    \"password\":\"password123\"\r\n}"
+                },
+                "header": [],
+                "method": "POST",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "sessions",
+                    "register"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/sessions/register"
+                }
+              },
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "html",
+              "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>CustomError: Email no válido<br> &nbsp; &nbsp;at AuthService.register (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/services/auth.service.js:28:13)<br> &nbsp; &nbsp;at Strategy._verify (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/config/passport.config.js:33:42)<br> &nbsp; &nbsp;at Strategy.authenticate (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport-local\\lib\\strategy.js:88:12)<br> &nbsp; &nbsp;at attempt (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport\\lib\\middleware\\authenticate.js:378:16)<br> &nbsp; &nbsp;at authenticate (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport\\lib\\middleware\\authenticate.js:379:7)<br> &nbsp; &nbsp;at Layer.handleRequest (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\layer.js:152:17)<br> &nbsp; &nbsp;at next (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\route.js:157:13)<br> &nbsp; &nbsp;at Route.dispatch (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\route.js:117:3)<br> &nbsp; &nbsp;at handle (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\index.js:435:11)<br> &nbsp; &nbsp;at Layer.handleRequest (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\layer.js:152:17)</pre>\n</body>\n</html>\n",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'none'"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "content-type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "1603"
+                },
+                {
+                  "key": "date",
+                  "value": "Sun, 27 Sep 2026 20:58:34 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Register wrong email format",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"first_name\":\"Alexis\",\r\n    \"last_name\":\"Herrera\",\r\n    \"email\":\"emailalexis20@.org\",\r\n    \"password\":\"password123\"\r\n}"
+                },
+                "header": [],
+                "method": "POST",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "sessions",
+                    "register"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/sessions/register"
+                }
+              },
+              "status": "Unprocessable Entity"
+            },
+            {
+              "_postman_previewlanguage": "html",
+              "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>CustomError: La constraseña debe tener al menos 8 caracteres<br> &nbsp; &nbsp;at AuthService.register (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/services/auth.service.js:40:13)<br> &nbsp; &nbsp;at Strategy._verify (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/config/passport.config.js:33:42)<br> &nbsp; &nbsp;at Strategy.authenticate (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport-local\\lib\\strategy.js:88:12)<br> &nbsp; &nbsp;at attempt (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport\\lib\\middleware\\authenticate.js:378:16)<br> &nbsp; &nbsp;at authenticate (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport\\lib\\middleware\\authenticate.js:379:7)<br> &nbsp; &nbsp;at Layer.handleRequest (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\layer.js:152:17)<br> &nbsp; &nbsp;at next (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\route.js:157:13)<br> &nbsp; &nbsp;at Route.dispatch (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\route.js:117:3)<br> &nbsp; &nbsp;at handle (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\index.js:435:11)<br> &nbsp; &nbsp;at Layer.handleRequest (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\layer.js:152:17)</pre>\n</body>\n</html>\n",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'none'"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "content-type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "1635"
+                },
+                {
+                  "key": "date",
+                  "value": "Sun, 27 Sep 2026 20:59:28 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Register weak password",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"first_name\":\"Alexis\",\r\n    \"last_name\":\"Herrera\",\r\n    \"email\":\"emailalexis20@mail.org\",\r\n    \"password\":\"rd123\"\r\n}"
+                },
+                "header": [],
+                "method": "POST",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "sessions",
+                    "register"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/sessions/register"
+                }
+              },
+              "status": "Unprocessable Entity"
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\r\n    \"email\":\"organizer2@example.com\",\r\n    \"password\":\"123456\"\r\n}"
+            },
+            "header": [],
+            "method": "POST",
+            "url": {
+              "host": [
+                "localhost"
+              ],
+              "path": [
+                "api",
+                "sessions",
+                "login"
+              ],
+              "port": "8080",
+              "raw": "localhost:8080/api/sessions/login"
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"Credenciales inválidas\"\n}",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "54"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"36-IAEurGKE96Q5Bgp4g8EsDsFpsNs\""
+                },
+                {
+                  "key": "date",
+                  "value": "Fri, 11 Sep 2026 03:10:03 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Login incorrecto",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"email\":\"email@example.com\",\r\n    \"password\":\"password15102\"\r\n}"
+                },
+                "header": [],
+                "method": "POST",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "sessions",
+                    "login"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/sessions/login"
+                }
+              },
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"El email y la contraseña son obligatorios\"\n}",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "73"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"49-e5RdG20X1PiQeaOBjUslv5tRrHU\""
+                },
+                {
+                  "key": "date",
+                  "value": "Fri, 11 Sep 2026 03:14:07 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Login sin credenciales",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"email\":\"email@example.com\",\r\n    \"password\":\"\"\r\n}"
+                },
+                "header": [],
+                "method": "POST",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "sessions",
+                    "login"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/sessions/login"
+                }
+              },
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"status\": \"success\",\n  \"message\": \"Usuario autenticado\",\n  \"data\": {\n    \"user\": {\n      \"id\": \"6aae941c0a5ccc275488b37b\",\n      \"email\": \"organizer2@example.com\",\n      \"role\": \"organizer\"\n    },\n    \"token\": \"{{json_web_token_0jvy}}\"\n  }\n}",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "set-cookie",
+                  "value": "currentUser={{json_web_token_0jvy}}; Max-Age=3600; Path=/; Expires=Sun, 27 Sep 2026 22:00:27 GMT; HttpOnly; SameSite=Lax"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "405"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"195-M96z3Oa4f/h62KKmKA8UrUUW1ek\""
+                },
+                {
+                  "key": "date",
+                  "value": "Sun, 27 Sep 2026 21:00:27 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Login correcto",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"email\":\"organizer2@example.com\",\r\n    \"password\":\"123456\"\r\n}"
+                },
+                "header": [],
+                "method": "POST",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "sessions",
+                    "login"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/sessions/login"
+                }
+              },
+              "status": "OK"
+            }
+          ]
+        },
+        {
+          "name": "Current",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": ""
+            },
+            "header": [],
+            "method": "GET",
+            "url": {
+              "host": [
+                "localhost"
+              ],
+              "path": [
+                "api",
+                "sessions",
+                "current"
+              ],
+              "port": "8080",
+              "raw": "localhost:8080/api/sessions/current"
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"No autenticado\"\n}",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "45"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"2d-D274w7oWvK6AfuYIGoWZjS9Fwz4\""
+                },
+                {
+                  "key": "date",
+                  "value": "Fri, 11 Sep 2026 03:10:10 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Current no autenticado",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": ""
+                },
+                "header": [],
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "sessions",
+                    "current"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/sessions/current"
+                }
+              },
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"status\": \"success\",\n  \"payload\": {\n    \"id\": \"6aa371440045a39f6870755d\",\n    \"email\": \"email@example.com\",\n    \"role\": \"user\"\n  }\n}",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "112"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"70-zeULuatGNZnt/8PK2FFqEAiZjJk\""
+                },
+                {
+                  "key": "date",
+                  "value": "Fri, 11 Sep 2026 03:12:34 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Current autenticado",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": ""
+                },
+                "header": [],
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "sessions",
+                    "current"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/sessions/current"
+                }
+              },
+              "status": "OK"
+            }
+          ]
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": ""
+            },
+            "header": [],
+            "method": "POST",
+            "url": {
+              "host": [
+                "localhost"
+              ],
+              "path": [
+                "api",
+                "sessions",
+                "logout"
+              ],
+              "port": "8080",
+              "raw": "localhost:8080/api/sessions/logout"
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"status\": \"success\",\n  \"message\": \"Logout exitoso\"\n}",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "set-cookie",
+                  "value": "currentUser=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "47"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"2f-ej9BXO62SRnvtYaUuWiXUEPeW2g\""
+                },
+                {
+                  "key": "date",
+                  "value": "Fri, 11 Sep 2026 03:12:53 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Logout",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": ""
+                },
+                "header": [],
+                "method": "POST",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "sessions",
+                    "logout"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/sessions/logout"
+                }
+              },
+              "status": "OK"
+            }
+          ]
+        }
+      ],
+      "name": "Sessions"
+    },
+    {
+      "item": [
+        {
+          "name": "Tickets por usuario",
+          "request": {
+            "header": [],
+            "method": "GET",
+            "url": {
+              "host": [
+                "localhost"
+              ],
+              "path": [
+                "api",
+                "tickets",
+                "my-tickets"
+              ],
+              "port": "8080",
+              "raw": "localhost:8080/api/tickets/my-tickets"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Tickets por event",
+          "request": {
+            "header": [],
+            "method": "GET",
+            "url": {
+              "host": [
+                "localhost"
+              ],
+              "path": [
+                "api",
+                "tickets",
+                "my-tickets"
+              ],
+              "port": "8080",
+              "raw": "localhost:8080/api/tickets/my-tickets"
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"status\": \"success\",\n  \"message\": \"Tickets para el evento obtenidos con éxito\",\n  \"data\": [\n    {\n      \"id\": \"6ab7c7c24949bd7848af7595\",\n      \"reservationCode\": \"TK-ISGQ2EZK\",\n      \"user\": {\n        \"_id\": \"6aae941c0a5ccc275488b37b\",\n        \"first_name\": \"Diego\",\n        \"last_name\": \"Perez\",\n        \"email\": \"organizer2@example.com\"\n      },\n      \"event\": \"6aae9d395b09893290def65b\",\n      \"status\": \"confirmed\",\n      \"quantity\": 2,\n      \"createdAt\": \"2026-09-26T13:25:22.266Z\"\n    },\n    {\n      \"id\": \"6ab73da8827a5e76ca1ca327\",\n      \"reservationCode\": \"TK-EWB2VS29\",\n      \"user\": {\n        \"_id\": \"6aae941c0a5ccc275488b37b\",\n        \"first_name\": \"Diego\",\n        \"last_name\": \"Perez\",\n        \"email\": \"organizer2@example.com\"\n      },\n      \"event\": \"6aae9d395b09893290def65b\",\n      \"status\": \"cancelled\",\n      \"quantity\": 10,\n      \"createdAt\": \"2026-09-26T03:36:08.170Z\"\n    },\n    {\n      \"id\": \"6ab73a506d259112d0d68e60\",\n      \"reservationCode\": \"TK-MXYKA68H\",\n      \"user\": {\n        \"_id\": \"6aae941c0a5ccc275488b37a\",\n        \"first_name\": \"Carlos\",\n        \"last_name\": \"Lopez\",\n        \"email\": \"organizer@example.com\"\n      },\n      \"event\": \"6aae9d395b09893290def65b\",\n      \"status\": \"cancelled\",\n      \"quantity\": 10,\n      \"createdAt\": \"2026-09-26T03:21:52.521Z\"\n    },\n    {\n      \"id\": \"6ab739396d259112d0d68e5f\",\n      \"reservationCode\": \"TK-K9TWQPPQ\",\n      \"user\": {\n        \"_id\": \"6aae941c0a5ccc275488b37b\",\n        \"first_name\": \"Diego\",\n        \"last_name\": \"Perez\",\n        \"email\": \"organizer2@example.com\"\n      },\n      \"event\": \"6aae9d395b09893290def65b\",\n      \"status\": \"cancelled\",\n      \"quantity\": 3,\n      \"createdAt\": \"2026-09-26T03:17:13.292Z\"\n    }\n  ]\n}",
+              "code": 201,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "1247"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"4df-qDv0zBchzeWzHFivnMHxXbGeXd4\""
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 03:02:51 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Tickets por event Success",
+              "originalRequest": {
+                "header": [],
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "tickets",
+                    "event",
+                    ":eventId",
+                    "tickets"
+                  ],
+                  "port": "8080",
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "confirmed"
+                    }
+                  ],
+                  "raw": "localhost:8080/api/tickets/event/:eventId/tickets?status=confirmed",
+                  "variable": [
+                    {
+                      "key": "eventId",
+                      "value": "6aae9d395b09893290def65b"
+                    }
+                  ]
+                }
+              },
+              "status": "Created"
+            },
+            {
+              "_postman_previewlanguage": "html",
+              "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>CustomError: El ID de ticket proporcionado no es válido<br> &nbsp; &nbsp;at CustomError.badRequest (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/utils/custom-error.js:18:12)<br> &nbsp; &nbsp;at TicketService.validateObjectId (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/services/ticket.service.js:21:31)<br> &nbsp; &nbsp;at TicketService.getTicketsByEvent (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/services/ticket.service.js:140:14)<br> &nbsp; &nbsp;at getTicketsByEvent (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/controllers/ticket.controller.js:55:44)<br> &nbsp; &nbsp;at Layer.handleRequest (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\layer.js:152:17)<br> &nbsp; &nbsp;at next (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\route.js:157:13)<br> &nbsp; &nbsp;at file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/middlewares/authorization.mid.js:15:5<br> &nbsp; &nbsp;at Layer.handleRequest (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\layer.js:152:17)<br> &nbsp; &nbsp;at next (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\route.js:157:13)<br> &nbsp; &nbsp;at complete (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport\\lib\\middleware\\authenticate.js:280:13)</pre>\n</body>\n</html>\n",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'none'"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "content-type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "1656"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 03:05:33 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Tickets por event Bad request",
+              "originalRequest": {
+                "header": [],
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "tickets",
+                    "event",
+                    ":eventId",
+                    "tickets"
+                  ],
+                  "port": "8080",
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "confirmed"
+                    }
+                  ],
+                  "raw": "localhost:8080/api/tickets/event/:eventId/tickets?status=confirmed",
+                  "variable": [
+                    {
+                      "key": "eventId",
+                      "value": "6aae9d394b9893290def65b"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request"
+            }
+          ]
+        },
+        {
+          "name": "Enroll",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\r\n    \"quantity\":10\r\n}"
+            },
+            "header": [],
+            "method": "POST",
+            "url": {
+              "host": [
+                "localhost"
+              ],
+              "path": [
+                "api",
+                "tickets",
+                "event",
+                "6aae9d395b09893290def65b",
+                "tickets"
+              ],
+              "port": "8080",
+              "raw": "localhost:8080/api/tickets/event/6aae9d395b09893290def65b/tickets"
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"status\": \"success\",\n  \"message\": \"Inscripción realizada con éxito\",\n  \"data\": {\n    \"id\": \"6ad588c79fec7bec50f51966\",\n    \"reservationCode\": \"TK-KZQTTANH\",\n    \"user\": \"6ad5812d6d2ff568c27d4c4a\",\n    \"event\": \"6aae9d395b09893290def65b\",\n    \"status\": \"confirmed\",\n    \"quantity\": 2,\n    \"createdAt\": \"2026-10-19T03:04:39.884Z\"\n  }\n}",
+              "code": 201,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "281"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"119-XcBjaIAY497yLHwDWirFUK4BNR0\""
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 03:04:43 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Enroll Success",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"quantity\":2\r\n}"
+                },
+                "header": [],
+                "method": "POST",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "tickets",
+                    "event",
+                    "6aae9d395b09893290def65b",
+                    "tickets"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/tickets/event/6aae9d395b09893290def65b/tickets"
+                }
+              },
+              "status": "Created"
+            },
+            {
+              "_postman_previewlanguage": "html",
+              "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>CustomError: La cantidad de lugares debe ser mayor a 0<br> &nbsp; &nbsp;at CustomError.badRequest (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/utils/custom-error.js:18:12)<br> &nbsp; &nbsp;at TicketService.validateQuantity (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/services/ticket.service.js:28:31)<br> &nbsp; &nbsp;at TicketService.enroll (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/services/ticket.service.js:43:28)<br> &nbsp; &nbsp;at enroll (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/controllers/ticket.controller.js:11:44)<br> &nbsp; &nbsp;at Layer.handleRequest (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\layer.js:152:17)<br> &nbsp; &nbsp;at next (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\router\\lib\\route.js:157:13)<br> &nbsp; &nbsp;at complete (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport\\lib\\middleware\\authenticate.js:280:13)<br> &nbsp; &nbsp;at C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport\\lib\\middleware\\authenticate.js:287:15<br> &nbsp; &nbsp;at pass (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport\\lib\\authenticator.js:446:14)<br> &nbsp; &nbsp;at Authenticator.transformAuthInfo (C:\\Users\\alexi\\Documents\\Alex\\CoderHouse\\Backend II\\Entrega I\\node_modules\\passport\\lib\\authenticator.js:468:5)</pre>\n</body>\n</html>\n",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'none'"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "content-type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "1668"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 03:05:14 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Enroll Bad request",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"quantity\":\"\"\r\n}"
+                },
+                "header": [],
+                "method": "POST",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "tickets",
+                    "event",
+                    "6aae9d395b09893290def65b",
+                    "tickets"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/tickets/event/6aae9d395b09893290def65b/tickets"
+                }
+              },
+              "status": "Bad Request"
+            }
+          ]
+        },
+        {
+          "name": "Cancel Enroll",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\r\n    \"quantity\":10\r\n}"
+            },
+            "header": [],
+            "method": "PATCH",
+            "url": {
+              "host": [
+                "localhost"
+              ],
+              "path": [
+                "api",
+                "tickets",
+                "6ab73da8827a5e76ca1ca327",
+                "cancel"
+              ],
+              "port": "8080",
+              "raw": "localhost:8080/api/tickets/6ab73da8827a5e76ca1ca327/cancel"
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "html",
+              "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>CustomError: No tienes permisos para cancelar este ticket<br> &nbsp; &nbsp;at CustomError.forbidden (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/utils/custom-error.js:26:12)<br> &nbsp; &nbsp;at TicketService.cancelTicket (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/services/ticket.service.js:198:31)<br> &nbsp; &nbsp;at process.processTicksAndRejections (node:internal/process/task_queues:105:5)<br> &nbsp; &nbsp;at async cancelTicket (file:///C:/Users/alexi/Documents/Alex/CoderHouse/Backend%20II/Entrega%20I/src/controllers/ticket.controller.js:26:33)</pre>\n</body>\n</html>\n",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-security-policy",
+                  "value": "default-src 'none'"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "content-type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "749"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 03:06:09 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Cancel Enroll Forbidden",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"quantity\":10\r\n}"
+                },
+                "header": [],
+                "method": "PATCH",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "tickets",
+                    "6ab73da8827a5e76ca1ca327",
+                    "cancel"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/tickets/6ab73da8827a5e76ca1ca327/cancel"
+                }
+              },
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"status\": \"success\",\n  \"message\": \"Ticket 6ad588c79fec7bec50f51966 cancelado correctamente\",\n  \"data\": {\n    \"id\": \"6ad588c79fec7bec50f51966\",\n    \"reservationCode\": \"TK-KZQTTANH\",\n    \"user\": \"6ad5812d6d2ff568c27d4c4a\",\n    \"event\": {\n      \"_id\": \"6aae9d395b09893290def65b\",\n      \"title\": \"Aniversario de Alexis Herrera\",\n      \"description\": \"Aniversario laboral número 4 de Alexis\",\n      \"category\": \"Aniversarios Corporativos\",\n      \"date\": \"2026-10-24T05:00:00.000Z\",\n      \"location\": \"Mi oficina\",\n      \"capacity\": 20,\n      \"reserved\": 4,\n      \"price\": 10000,\n      \"status\": \"published\",\n      \"organizer\": \"6aae941c0a5ccc275488b37c\",\n      \"createdAt\": \"2026-09-19T14:33:29.687Z\",\n      \"updatedAt\": \"2026-10-19T03:04:39.787Z\",\n      \"__v\": 0\n    },\n    \"status\": \"cancelled\",\n    \"quantity\": 2,\n    \"createdAt\": \"2026-10-19T03:04:39.884Z\"\n  }\n}",
+              "code": 201,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "x-powered-by",
+                  "value": "Express"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "content-length",
+                  "value": "691"
+                },
+                {
+                  "key": "etag",
+                  "value": "W/\"2b3-vQo6u0FtYX51IEPGK4b0aSj6GoI\""
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 19 Oct 2026 03:08:00 GMT"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "name": "Cancel Enroll Success",
+              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  },
+                  "raw": "{\r\n    \"quantity\":10\r\n}"
+                },
+                "header": [],
+                "method": "PATCH",
+                "url": {
+                  "host": [
+                    "localhost"
+                  ],
+                  "path": [
+                    "api",
+                    "tickets",
+                    "{{ticketId}}",
+                    "cancel"
+                  ],
+                  "port": "8080",
+                  "raw": "localhost:8080/api/tickets/{{ticketId}}/cancel"
+                }
+              },
+              "status": "Created"
+            }
+          ]
+        }
+      ],
+      "name": "Tickets"
+    },
+    {
+      "name": "Server Health",
+      "request": {
+        "header": [],
+        "method": "GET",
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": [
+        {
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"status\": \"ok\",\n  \"message\": \"Servidor activo\"\n}",
+          "code": 200,
+          "cookie": [],
+          "header": [
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "43"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"2b-Zu0xxTuPk7DYj2QDJwzsYcntp2I\""
+            },
+            {
+              "key": "date",
+              "value": "Mon, 19 Oct 2026 03:08:18 GMT"
+            },
+            {
+              "key": "connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "keep-alive",
+              "value": "timeout=5"
+            }
+          ],
+          "name": "Server Health",
+          "originalRequest": {
+            "header": [],
+            "method": "GET",
+            "url": {
+              "host": [
+                "localhost"
+              ],
+              "path": [
+                "api",
+                "health"
+              ],
+              "port": "8080",
+              "raw": "localhost:8080/api/health"
+            }
+          },
+          "status": "OK"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "eventId",
+      "value": ""
+    },
+    {
+      "key": "ticketId",
+      "value": ""
+    }
+  ]
+}

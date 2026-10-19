@@ -11,9 +11,9 @@ import passport from "../config/passport.config.js";
 const router = Router();
 
 router.post(
-  "/register",
-  passport.authenticate("register", { session: false }),
-  register,
+    "/register", 
+    passport.authenticate("register", { session: false }), 
+    register
 );
 
 router.post(
@@ -35,7 +35,8 @@ router.get(
 
 router.get(
     "/current", 
-    passport.authenticate("current", { session: false }), current
+    passport.authenticate("current", { session: false }), 
+    current
 );
 
 router.post(
